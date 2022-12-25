@@ -18,6 +18,8 @@ class RoleResource extends JsonResource
             'id'=>$this->id,
             'role'=>$this->role,
             'shortrole'=>$this->shortrole,
+            'createdBy'=>$this->createdBy,
+            'lastmodifiedBy'=>$this->lastmodifiedBy,
 
         ];
     }

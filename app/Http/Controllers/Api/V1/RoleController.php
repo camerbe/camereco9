@@ -64,9 +64,14 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
         //
+        $role = $this->rolerepository->findById($id);
+        return response()->json([
+            'role' => $role,
+            "message" => "Rôle trouvé"
+        ], Response::HTTP_FOUND);
     }
 
     /**
@@ -87,9 +92,13 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request,  $id)
     {
         //
+        $this->rolerepository->update($request->all(), $id);
+        return response()->json([
+            "message" => "Role mis à jour"
+        ], Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -98,8 +107,12 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
         //
+        $this->rolerepository->delete($id);
+        return response()->json([
+            "message" => "Role supprimé"
+        ], Response::HTTP_ACCEPTED);
     }
 }
