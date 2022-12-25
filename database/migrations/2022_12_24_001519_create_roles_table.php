@@ -20,7 +20,7 @@ return new class extends Migration
             $table->id();
             $table->string('role',50);
             $table->string('slug')->unique();
-            $table->enum('shortrole', ['USR', 'ADM'])->unique();
+            $table->enum('shortrole', ['USR', 'ADM','RED'])->unique();
             $table->string('createdBy',50)->nullable();
             $table->string('lastmodifiedBy',50)->nullable();
             $table->timestamps();

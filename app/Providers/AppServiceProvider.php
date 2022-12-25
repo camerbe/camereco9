@@ -24,5 +24,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $this->RegisterUserRepo();
+        $this->RegisterRoleRepo();
+    }
+
+    public function RegisterUserRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\UserRepository');
+    }
+    public function RegisterRoleRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\RoleRepository');
     }
 }
