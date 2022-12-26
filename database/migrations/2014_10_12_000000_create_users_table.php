@@ -22,7 +22,6 @@ return new class extends Migration
                 $table->string('nom',100);
                 $table->string('prenom',100);
                 $table->string('email',100)->unique();
-                $table->boolean('valide')->default(0);
                 $table->boolean('suspended')->default(1);
                 $table->string('password');
                 $table->string('createdBy',50)->nullable();

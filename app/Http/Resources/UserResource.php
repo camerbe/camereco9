@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'nom'=>$this->nom,
             'prenom'=>$this->prenom,
             'email'=>$this->email ,
-            'valide'=>$this->valide,
+            'email_verified_at'=>$this->email_verified_at,
             'suspended'=>$this->suspended,
             'createdBy'=>$this->createdBy,
             'lastmodifiedBy'=>$this->lastmodifiedBy,

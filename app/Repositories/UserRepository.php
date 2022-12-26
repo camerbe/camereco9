@@ -6,7 +6,8 @@
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
     use Illuminate\Support\Arr;
-use App\Http\Resources\UserResource;
+    use App\Http\Resources\UserResource;
+    use Illuminate\Auth\Events\Registered;
 
     class UserRepository extends BaseRepository  {
 
@@ -41,6 +42,8 @@ use App\Http\Resources\UserResource;
             $input['password']=bcrypt($input['password']);
             $userId= parent::create($input)->id;
             $usr=$this->findById($userId);
+            $usr->roles()->attach($input['role']);
+            event(new Registered($usr));
             return new UserResource($usr);
         }
         public function findAll(){
