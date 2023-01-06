@@ -26,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
         //
         $this->RegisterUserRepo();
         $this->RegisterRoleRepo();
+        $this->RegisterTagRepo();
+        $this->RegisterCategorieRepo();
+        $this->RegisterPubDimensionRepo();
+        $this->RegisterPubRepo();
     }
 
     public function RegisterUserRepo(){
@@ -33,5 +37,17 @@ class AppServiceProvider extends ServiceProvider
     }
     public function RegisterRoleRepo(){
         return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\RoleRepository');
+    }
+    public function RegisterTagRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\TagRepository');
+    }
+    public function RegisterCategorieRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\CategorieRepository');
+    }
+    public function RegisterPubDimensionRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\PubDimensionRepository');
+    }
+    public function RegisterPubRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\PubDimensionRepository');
     }
 }

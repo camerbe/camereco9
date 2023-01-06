@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('auteur');
             $table->string('source');
             $table->text('titre');
+            $table->string('chapeau',200);
             $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

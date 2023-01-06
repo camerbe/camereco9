@@ -19,6 +19,8 @@ return new class extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->id();
             $table->string('categorie',50);
+            $table->unsignedBigInteger('rubrique_id');
+            $table->foreign('rubrique_id')->references('id')->on('rubriques');
             $table->string('slug')->unique();
             $table->string('createdBy',50)->nullable();
             $table->string('lastmodifiedBy',50)->nullable();
