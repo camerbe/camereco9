@@ -15,8 +15,9 @@ class Rubrique extends Model
         'lastmodifiedBy',
 
     ];
-    public function categorie()
+    public function categories()
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->hasMany(Categorie::class);
+
     }
 }

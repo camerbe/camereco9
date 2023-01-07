@@ -20,8 +20,12 @@ class Categorie extends Model
     {
         return $this->belongsTo(Article::class);
     }
+    // public function rubriques()
+    // {
+    //     return $this->hasMany(Rubrique::class);
+    // }
     public function rubrique()
     {
-        return $this->hasMany(Rubrique::class);
+        return $this->belongsTo(Rubrique::class);
     }
 }

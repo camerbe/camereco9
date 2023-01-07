@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Categorie;
+use App\Http\Resources\CategorieResource;
+use App\Models\Rubrique;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RubriqueResource extends JsonResource
@@ -14,13 +17,25 @@ class RubriqueResource extends JsonResource
      */
     public function toArray($request)
     {
+        $categories = Rubrique::find($this->id)->categories();
+        //dd($rubrique);
         return [
             'id'=>$this->id,
             'rubrique'=>$this->rubrique,
-            //'categories'=> new CategorieResource($this->id),
+            'categories'=> CategorieResource::collection($this->categories),
             'createdBy'=>$this->createdBy,
             'lastmodifiedBy'=>$this->lastmodifiedBy,
 
+
         ];
     }
+    // public function relationships($request): iterable
+    // {
+    //     return [
+    //         $this->relation('categorie','rubrique'),
+    //        // $this->relation('comments'),
+    //        // $this->relation('tags'),
+    //     ];
+    // }
+
 }
