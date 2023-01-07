@@ -5,6 +5,7 @@
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
     use Illuminate\Support\Arr;
+    use App\Http\Resources\CategorieResource;
 
     class CategorieRepository extends BaseRepository  {
 
@@ -14,7 +15,7 @@
         }
         public function findById($id)
         {
-            return  parent::findById($id) ;
+            return  new CategorieResource(parent::findById($id)) ;
         }
         public function delete($id)
         {
@@ -30,9 +31,11 @@
             $input['categorie'] = Str::title($input['categorie']);
             $input['slug'] = Str::slug($input['categorie']);
             $categorieId= parent::create($input)->id;
-            return $this->findById($categorieId) ;
+            return new CategorieResource($this->findById($categorieId)) ;
+            //return $this->findById($categorieId);
         }
         public function findAll(){
-            return Categorie::orderBy('categorie','asc')->paginate();
+            $categories= Categorie::orderBy('categorie','asc')->paginate();
+            return CategorieResource::collection($categories);
         }
     }

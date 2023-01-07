@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategorieRequest extends FormRequest
+class RubriqueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,15 @@ class CategorieRequest extends FormRequest
     {
         return [
             //
-            "categorie"=>"required",
-            "rubrique_id"=>"required",
-        ];
+            "rubrique"=>"required",
 
+        ];
     }
     public function messages()
     {
         return [
-            'categorie.required' => 'La catégorie est requise',
-            'rubrique_id.required' => 'La rubrique est requise',
+            'rubrique.required' => 'La rubrique est requise',
+
         ];
     }
 }

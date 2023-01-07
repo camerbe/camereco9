@@ -17,8 +17,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
-            $table->id();
-            $table->string('code',10);
+            $table->string('code',4)->primary();
             $table->string('pays');
             $table->string('country');
             $table->string('createdBy',50)->nullable();

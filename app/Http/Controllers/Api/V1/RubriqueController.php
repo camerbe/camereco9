@@ -5,9 +5,18 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Rubrique;
 use Illuminate\Http\Request;
-
+use App\Repositories\RubriqueRepository;
+use App\Http\Requests\RubriqueRequest;
+use Symfony\Component\HttpFoundation\Response;
 class RubriqueController extends Controller
 {
+    protected $rubriquerepository;
+
+    public function __construct(RubriqueRepository $rubriquerepository)
+    {
+        $this->rubriquerepository = $rubriquerepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +25,12 @@ class RubriqueController extends Controller
     public function index()
     {
         //
+        $rubrique= $this->rubriquerepository->findAll();
+        return response()->json([
+            "Rubriques"=>$rubrique,
+            "message"=>"Liste des rubriques",
+
+        ],Response::HTTP_OK);
     }
 
     /**
@@ -34,9 +49,14 @@ class RubriqueController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RubriqueRequest $request)
     {
         //
+        $rubrique = $this->rubriquerepository->create($request->all());
+        return response()->json([
+            "rubrique" => $rubrique,
+            "message" => "Rubrique ajoutée"
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -45,9 +65,14 @@ class RubriqueController extends Controller
      * @param  \App\Models\Rubrique  $rubrique
      * @return \Illuminate\Http\Response
      */
-    public function show(Rubrique $rubrique)
+    public function show($id)
     {
         //
+        $rubrique = $this->rubriquerepository->findById($id);
+        return response()->json([
+            'rubrique' => $rubrique,
+            "message" => "Rubrique trouvée"
+        ], Response::HTTP_FOUND);
     }
 
     /**
@@ -68,9 +93,13 @@ class RubriqueController extends Controller
      * @param  \App\Models\Rubrique  $rubrique
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rubrique $rubrique)
+    public function update(Request $request, $id)
     {
         //
+        $this->rubriquerepository->update($request->all(), $id);
+        return response()->json([
+            "message" => "Rubrique mise à jour"
+        ], Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -79,8 +108,13 @@ class RubriqueController extends Controller
      * @param  \App\Models\Rubrique  $rubrique
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rubrique $rubrique)
+    public function destroy($id)
     {
         //
+        $this->rubriquerepository->delete($id);
+        return response()->json([
+            "message" => "Rubrique supprimée"
+        ], Response::HTTP_ACCEPTED);
     }
+
 }

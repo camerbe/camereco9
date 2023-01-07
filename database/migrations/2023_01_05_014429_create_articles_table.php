@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('pays_id');
-            $table->foreign('pays_id')->references('id')->on('pays');
+            $table->string('pays_code');
+            $table->foreign('pays_code')->references('code')->on('pays');
             $table->unsignedBigInteger('categorie_id');
             $table->foreign('categorie_id')->references('id')->on('categories');
             $table->string('photo');

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Pays extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'code ',
+        'pays',
+        'country',
+        'createdBy',
+        'lastmodifiedBy',
+
+    ];
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 }
