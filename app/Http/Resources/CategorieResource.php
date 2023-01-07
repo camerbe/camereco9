@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Categorie;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategorieResource extends JsonResource
@@ -14,11 +15,15 @@ class CategorieResource extends JsonResource
      */
     public function toArray($request)
     {
+        $rubriques=Categorie::findOrFail($this->id);
+        $rub = $rubriques->rubrique->rubrique;
+        //dd($this->rub.' '.$rub);
         return [
             'id'=>$this->id,
             'categorie'=>$this->categorie,
             'slug'=>$this->slug,
             'rubrique_id'=>$this->rubrique_id,
+            'rubrique'=>$rub,
             'createdBy'=>$this->createdBy,
             'lastmodifiedBy'=>$this->lastmodifiedBy,
 

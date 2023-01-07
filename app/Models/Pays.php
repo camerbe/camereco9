@@ -16,8 +16,8 @@ class Pays extends Model
         'lastmodifiedBy',
 
     ];
-    public function article()
+    public function articles()
     {
-        return $this->belongsTo(Article::class);
+        return $this->hasMany(Article::class);
     }
 }

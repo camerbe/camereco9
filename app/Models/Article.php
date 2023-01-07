@@ -26,14 +26,14 @@ class Article extends Model
     ];
     public function categorie()
     {
-        return $this->hasMany(Categorie::class);
+        return $this->belongsTo(Categorie::class);
     }
-    public function user()
+        public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
     public function countries()
     {
-        return $this->hasMany(Pays::class);
+        return $this->belongsTo(Pays::class);
     }
 }
