@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->RegisterPubDimensionRepo();
         $this->RegisterPubRepo();
         $this->RegisterRubriqueRepo();
+        $this->RegisterArticleRepo();
     }
 
     public function RegisterUserRepo(){
@@ -53,5 +54,8 @@ class AppServiceProvider extends ServiceProvider
     }
     public function RegisterRubriqueRepo(){
         return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\RubriqueRepository');
+    }
+    public function RegisterArticleRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\ArticleRepository');
     }
 }

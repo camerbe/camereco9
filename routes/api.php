@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\CategorieController;
 use App\Http\Controllers\Api\V1\PubDimensionController;
 use App\Http\Controllers\Api\V1\PubController;
 use App\Http\Controllers\Api\V1\RubriqueController;
+use App\Http\Controllers\Api\V1\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,5 @@ Route::apiResource('categories', CategorieController::class);
 Route::apiResource('rubriques', RubriqueController::class);
 Route::apiResource('dimensions', PubDimensionController::class);
 Route::apiResource('pubs', PubController::class);
+Route::apiResource('articles', ArticleController::class);
 

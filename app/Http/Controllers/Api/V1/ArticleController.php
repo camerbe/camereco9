@@ -5,9 +5,18 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\ArticleRepository;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
+    protected $articlerepository;
+
+    public function __construct(ArticleRepository $articlerepository)
+    {
+        $this->articlerepository = $articlerepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +25,12 @@ class ArticleController extends Controller
     public function index()
     {
         //
+        $article= $this->articlerepository->findAll();
+        return response()->json([
+            "Articles"=>$article,
+            "message"=>"Liste des articles",
+
+        ],Response::HTTP_OK);
     }
 
     /**
@@ -34,9 +49,15 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         //
+        $article = $this->articlerepository->create($request->all());
+
+        return response()->json([
+            "article"=>$article,
+            "message"=>"Article ajouté"
+        ],Response::HTTP_CREATED);
     }
 
     /**
@@ -45,9 +66,14 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
         //
+        $article = $this->articlerepository->findById($id);
+        return response()->json([
+            'Article' => $article,
+            "message" => "Article trouvé"
+        ], Response::HTTP_FOUND);
     }
 
     /**
@@ -68,9 +94,13 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
         //
+        $this->articlerepository->update($request->all(), $id);
+        return response()->json([
+            "message" => "Article mis à jour"
+        ], Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -79,8 +109,12 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
         //
+        $this->articlerepository->delete($id);
+        return response()->json([
+            "message" => "Article supprimé"
+        ], Response::HTTP_ACCEPTED);
     }
 }

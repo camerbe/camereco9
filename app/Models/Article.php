@@ -28,12 +28,15 @@ class Article extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
-        public function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
     public function countries()
     {
         return $this->belongsTo(Pays::class);
+    }
+    public function tags(){
+        return $this->belongsToMany(Tag::class,'article_tag');
     }
 }
