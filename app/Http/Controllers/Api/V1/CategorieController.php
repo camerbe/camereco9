@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Repositories\CategorieRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\CategorieRequest;
-class CategorieController extends Controller
+use App\Http\Controllers\Api\V1\BaseController;
+class CategorieController extends BaseController
 {
     protected $categorieRepository;
 
@@ -25,11 +26,7 @@ class CategorieController extends Controller
     {
         //
         $categorie= $this->categorieRepository->findAll();
-        return response()->json([
-            "Categories"=>$categorie,
-            "message"=>"Liste des catégories",
-
-        ],Response::HTTP_OK);
+        return $this->sendResponse($categorie,"Liste des categories");
     }
 
     /**
@@ -52,10 +49,7 @@ class CategorieController extends Controller
     {
         //
         $categorie = $this->categorieRepository->create($request->all());
-        return response()->json([
-            "categorie"=>$categorie,
-            "message"=>"Categorie ajoutée"
-        ],Response::HTTP_CREATED);
+        return $this->s;
     }
 
     /**

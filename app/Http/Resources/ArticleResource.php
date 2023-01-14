@@ -2,9 +2,14 @@
 
 namespace App\Http\Resources;
 
+
+use App\Models\Article;
 use App\Models\Categorie;
+use App\Models\Pays;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\ArticleCollection;
 
 class ArticleResource extends JsonResource
 {
@@ -16,21 +21,27 @@ class ArticleResource extends JsonResource
      */
     public function toArray($request)
     {
-        $rubriques=Categorie::findOrFail($this->id);
+        $rubriques=Categorie::findOrFail($this->categorie_id);
         $rub = $rubriques->rubrique->rubrique;
+        //
+        $bled = Pays::where('code',$this->pays_code)->first();
+        $tags = $this->tags()->get();
+        //dd($tags.' '.$bled);
 
-        //dd($this->rub.' '.$rub);
         return [
             'id'=>$this->id,
+            'hit'=>$this->hit,
             'auteur'=>$this->auteur,
             'source'=>$this->source,
             'titre'=>$this->titre,
             'chapeau'=>$this->chapeau,
             'slug'=>$this->slug,
             'article'=>$this->titre,
-            'user_id '=>$this->user_id,
-            'pays_code '=>$this->pays_code,
-            'categorie_id  '=>$this->categorie_id,
+            'user_id'=>$this->user_id,
+            'pays_code'=>$this->pays_code,
+            'pays'=>$bled->pays ,
+            'country'=>$bled->country ,
+            'categorie_id'=>$this->categorie_id,
             'rubrique'=>$rub,
             'categorie'=>$rubriques->categorie,
             'photo'=>$this->photo,
@@ -38,6 +49,7 @@ class ArticleResource extends JsonResource
             'article  '=>$this->article,
             'createdBy'=>$this->createdBy,
             'lastmodifiedBy'=>$this->lastmodifiedBy,
+            'tags'=>  TagResource::collection($tags),
 
         ];
     }

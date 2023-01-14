@@ -9,6 +9,7 @@ class Article extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'hit',
         'auteur',
         'source',
         'titre',

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TagRequest;
 use App\Repositories\TagRepository;
 use Symfony\Component\HttpFoundation\Response;
-class TagController extends Controller
+use App\Http\Controllers\Api\V1\BaseController;
+class TagController extends BaseController
 {
     protected $tagRepository;
 
@@ -26,10 +27,8 @@ class TagController extends Controller
     {
         //
         $tags = $this->tagRepository->findAll();
-        return response()->json([
-            "Tag" => $tags,
-            "message" => "Liste des tags"
-        ], Response::HTTP_OK);
+        return $this->sendResponse($tags,"Liste des tags");
+
 
     }
 

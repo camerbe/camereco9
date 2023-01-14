@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\ArticleRepository;
 use App\Http\Requests\ArticleRequest;
+use App\Http\Controllers\Api\V1\BaseController;
 
-class ArticleController extends Controller
+class ArticleController extends BaseController
 {
     protected $articlerepository;
 
@@ -26,11 +27,9 @@ class ArticleController extends Controller
     {
         //
         $article= $this->articlerepository->findAll();
-        return response()->json([
-            "Articles"=>$article,
-            "message"=>"Liste des articles",
 
-        ],Response::HTTP_OK);
+        return $this->sendResponse($article, "Liste des articles");
+
     }
 
     /**
@@ -38,9 +37,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function same($pays,$categorie)
     {
         //
+        $samerubrique = $this->articlerepository->sameRubrique($pays, $categorie);
+        return $samerubrique ? $this->sendResponse($samerubrique, "Même rubrique") : $this->sendError("Erreur", ["Pas rubrique"]);
     }
 
     /**
@@ -52,12 +53,15 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         //
+        // $validated = $request->validated();
+        // $validated->fail()
         $article = $this->articlerepository->create($request->all());
+        return $article ? $this->sendResponse($article, "Article ajouté") : $this->sendError("Echec de l'ajout d'un article", ["Erreur"]);
 
-        return response()->json([
-            "article"=>$article,
-            "message"=>"Article ajouté"
-        ],Response::HTTP_CREATED);
+        // return response()->json([
+        //     "article"=>$article,
+        //     "message"=>"Article ajouté"
+        // ],Response::HTTP_CREATED);
     }
 
     /**
@@ -68,12 +72,15 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
+
         //
+        $article = Article::find($id);
+        ++$article->hit;
+        $article->save();
+        // dd($article);
         $article = $this->articlerepository->findById($id);
-        return response()->json([
-            'Article' => $article,
-            "message" => "Article trouvé"
-        ], Response::HTTP_FOUND);
+        return $article ? $this->sendResponse($article, "Article trouvé") : $this->sendError("Erreur", ["Article pas trouvé"]);
+
     }
 
     /**
@@ -96,11 +103,8 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $this->articlerepository->update($request->all(), $id);
-        return response()->json([
-            "message" => "Article mis à jour"
-        ], Response::HTTP_ACCEPTED);
+        return $this->sendResponse($this->articlerepository->update($request->all(), $id), "Article mis à jour");
+
     }
 
     /**
@@ -112,9 +116,9 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
-        $this->articlerepository->delete($id);
-        return response()->json([
-            "message" => "Article supprimé"
-        ], Response::HTTP_ACCEPTED);
+        return $this->sendResponse($this->articlerepository->delete($id),"Article supprimé");
+        // return response()->json([
+        //     "message" => "Article supprimé"
+        // ], Response::HTTP_ACCEPTED);
     }
 }
