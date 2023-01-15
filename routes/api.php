@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\PubDimensionController;
 use App\Http\Controllers\Api\V1\PubController;
 use App\Http\Controllers\Api\V1\RubriqueController;
 use App\Http\Controllers\Api\V1\ArticleController;
+use App\Http\Controllers\Api\V1\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,25 +27,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-Route::apiResources([
-    'roles'      => RoleController::class,
-    'users'      => UserController::class,
-    'tags'       => TagController::class,
-    'categories' => CategorieController::class,
-    'rubriques'  => RubriqueController::class,
-    'dimensions' => PubDimensionController::class,
-    'pubs'       => PubController::class,
-    'articles'   => ArticleController::class,
-]);
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('articles/user/{user}', [ArticleController::class, 'articlebyuser']);
+    Route::get('logout', [AuthController::class, 'logout']);
+    Route::apiResources([
+        'roles'      => RoleController::class,
+        'users'      => UserController::class,
+        'tags'       => TagController::class,
+        'categories' => CategorieController::class,
+        'rubriques'  => RubriqueController::class,
+        'dimensions' => PubDimensionController::class,
+        'pubs'       => PubController::class,
+        'articles'   => ArticleController::class,
+    ]);
+});
+
 Route::get('articles/{pays}/{categorie}', [ArticleController::class, 'same']);
-// Route::apiResource('roles', RoleController::class);
-// Route::apiResource('users', UserController::class);
-// Route::apiResource('tags', TagController::class);
-// Route::apiResource('categories', CategorieController::class);
-// Route::apiResource('rubriques', RubriqueController::class);
-// Route::apiResource('dimensions', PubDimensionController::class);
-// Route::apiResource('pubs', PubController::class);
-// Route::apiResource('articles', ArticleController::class);
-// Route::apiResource('articles/{pays}/{categorie}', ArticleController::class,["articles.same"]);
+Route::post('login', [AuthController::class, 'login']);
+
 
 

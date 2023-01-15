@@ -49,10 +49,6 @@
             $titreForSlug = Str::contains(Str::lower($titreForSlug), Str::lower($pays->pays)) ? $titreForSlug : Str::slug($pays->pays . ' ' . $titreForSlug);
             $titreForSlug = Str::contains(Str::lower($titreForSlug), Str::lower($pays->country)) ? $titreForSlug :Str::slug( $titreForSlug .' ' .$pays->country) ;
 
-
-
-
-
             $input["source"]=$source;
             $input["titre"]=$titre;
             $input["chapeau"] = Str::limit($article, 200);
@@ -103,7 +99,11 @@
             $articles=  Article::orderBy('dateparution','desc')->paginate();
             return ArticleResource::collection($articles);
 
-         }
+        }
+        public function getArticleByUserId($userid){
+            $articles=  Article::where("user_id",$userid)->orderBy('dateparution','desc')->paginate();
+            return ArticleResource::collection($articles);
+        }
          public function sameRubrique($pays,$categorie){
             return ArticleResource::collection(Article::where([
                 ['pays_code', $pays],

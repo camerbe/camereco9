@@ -24,6 +24,8 @@ return new class extends Migration
                 $table->string('email',100)->unique();
                 $table->boolean('suspended')->default(1);
                 $table->string('password');
+                $table->timestamps('email_verified_at');
+                $table->string('remember_token')->nullable();
                 $table->string('createdBy',50)->nullable();
                 $table->string('lastmodifiedBy',50)->nullable();
                 $table->timestamps();

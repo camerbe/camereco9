@@ -16,6 +16,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+         'App\Models\Article' => 'App\Policies\ArticlePolicy',
+         'App\Models\User' => 'App\Policies\UserPolicy',
+         'App\Models\Role' => 'App\Policies\RolePolicy',
+         'App\Models\Tag' => 'App\Policies\TagPolicy',
     ];
 
     /**
@@ -30,9 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         //
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             return (new MailMessage)
-                ->subject('Verify Email Address')
-                ->line('Click the button below to verify your email address.')
-                ->action('Verify Email Address', $url);
+                ->subject("Vérifier l'adresse e-mail")
+                ->line('Cliquez sur le bouton ci-dessous pour vérifier votre adresse e-mail.')
+                ->action("Vérifier l'adresse e-mail", $url);
         });
     }
 }

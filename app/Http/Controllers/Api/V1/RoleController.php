@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Repositories\RoleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\RoleRequest;
+use Illuminate\Support\Facades\Auth;
 class RoleController extends Controller
 {
     protected $rolerepository;
@@ -24,12 +25,23 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $roles= $this->rolerepository->findAll();
-        return response()->json([
-            "Roles"=>$roles,
-            "message"=>"Role list",
+        if(Auth::user()->can('viewAny',User::class)){
+            $roles= $this->rolerepository->findAll();
+            return response()->json([
+                "sucess"=>true,
+                "Roles"=>$roles,
+                "message"=>"Liste des rôles",
 
-        ],Response::HTTP_OK);
+            ],Response::HTTP_OK);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message"=>"Pas autorisé à lister les rôles",
+
+            ],Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -51,11 +63,21 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         //
-        $role = $this->rolerepository->create($request->all());
-        return response()->json([
-            "role" => $role,
-            "message" => "Role ajouté"
-        ], Response::HTTP_CREATED);
+        if(Auth::user()->can('create',User::class)){
+            $role = $this->rolerepository->create($request->all());
+            return response()->json([
+                "sucess"=>true,
+                "role" => $role,
+                "message" => "Role ajouté"
+            ], Response::HTTP_CREATED);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé à ajouter un rôle "
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -67,11 +89,21 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-        $role = $this->rolerepository->findById($id);
-        return response()->json([
-            'role' => $role,
-            "message" => "Rôle trouvé"
-        ], Response::HTTP_FOUND);
+        if(Auth::user()->can('view',User::class,Role::class)){
+            $role = $this->rolerepository->findById($id);
+            return response()->json([
+                "sucess"=>true,
+                'role' => $role,
+                "message" => "Rôle trouvé"
+            ], Response::HTTP_FOUND);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -95,10 +127,20 @@ class RoleController extends Controller
     public function update(Request $request,  $id)
     {
         //
-        $this->rolerepository->update($request->all(), $id);
-        return response()->json([
-            "message" => "Role mis à jour"
-        ], Response::HTTP_ACCEPTED);
+        if(Auth::user()->can('update',User::class,Role::class)){
+            $this->rolerepository->update($request->all(), $id);
+            return response()->json([
+                "sucess"=>true,
+                "message" => "Role mis à jour"
+            ], Response::HTTP_ACCEPTED);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé à mettre un rôle à jour"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -110,9 +152,19 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
-        $this->rolerepository->delete($id);
-        return response()->json([
-            "message" => "Role supprimé"
-        ], Response::HTTP_ACCEPTED);
+        if(Auth::user()->can('delete',User::class,Role::class)){
+            $this->rolerepository->delete($id);
+            return response()->json([
+                "sucess"=>true,
+                "message" => "Role supprimé"
+            ], Response::HTTP_ACCEPTED);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé à supprimer un rôle"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 }

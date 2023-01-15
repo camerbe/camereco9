@@ -36,7 +36,6 @@ class ArticleResource extends JsonResource
             'titre'=>$this->titre,
             'chapeau'=>$this->chapeau,
             'slug'=>$this->slug,
-            'article'=>$this->titre,
             'user_id'=>$this->user_id,
             'pays_code'=>$this->pays_code,
             'pays'=>$bled->pays ,

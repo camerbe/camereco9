@@ -4,19 +4,24 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\ArticleRepository;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Controllers\Api\V1\BaseController;
+use Illuminate\Support\Facades\Auth;
+
 
 class ArticleController extends BaseController
 {
     protected $articlerepository;
+    protected $user;
 
     public function __construct(ArticleRepository $articlerepository)
     {
         $this->articlerepository = $articlerepository;
+
     }
     /**
      * Display a listing of the resource.
@@ -26,12 +31,22 @@ class ArticleController extends BaseController
     public function index()
     {
         //
-        $article= $this->articlerepository->findAll();
+        // $usr = User::find(Auth::user()->id);
+        // dd($usr->articles()->first());
+        // if(Auth::user()->can('viewAny',User::class)){
+            $articles= $this->articlerepository->getArticleByUserId(Auth::user()->id);
+            return $this->sendResponse($articles, "Liste des articles");
+        // }
+        // else{
+        //     return $this->sendError("Pas autorisé", ["Erreur"]);
+        // }
 
-        return $this->sendResponse($article, "Liste des articles");
 
     }
-
+    public function articlebyuser($userid){
+        $articles = $this->articlerepository->getArticleByUserId($userid);
+        return $articles ? $this->sendResponse($articles, "Liste des articles") : $this->sendError("Erreur", ["Pas d'articles"]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -53,10 +68,15 @@ class ArticleController extends BaseController
     public function store(ArticleRequest $request)
     {
         //
-        // $validated = $request->validated();
-        // $validated->fail()
-        $article = $this->articlerepository->create($request->all());
-        return $article ? $this->sendResponse($article, "Article ajouté") : $this->sendError("Echec de l'ajout d'un article", ["Erreur"]);
+        //dd(Auth::user());
+        if(Auth::user()->can('create',Article::class)){
+            $article = $this->articlerepository->create($request->all());
+            return $article ? $this->sendResponse($article, "Article ajouté") : $this->sendError("Echec de l'ajout d'un article", ["Erreur"]);
+        }
+        else{
+            return $this->sendError("vous n'êtes pas autorisé à ajouter les articles", ["Echec"]);
+        }
+
 
         // return response()->json([
         //     "article"=>$article,
@@ -72,26 +92,12 @@ class ArticleController extends BaseController
      */
     public function show($id)
     {
-
         //
         $article = Article::find($id);
         ++$article->hit;
         $article->save();
-        // dd($article);
         $article = $this->articlerepository->findById($id);
         return $article ? $this->sendResponse($article, "Article trouvé") : $this->sendError("Erreur", ["Article pas trouvé"]);
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Article $article)
-    {
-        //
     }
 
     /**
@@ -115,10 +121,14 @@ class ArticleController extends BaseController
      */
     public function destroy($id)
     {
+
         //
-        return $this->sendResponse($this->articlerepository->delete($id),"Article supprimé");
-        // return response()->json([
-        //     "message" => "Article supprimé"
-        // ], Response::HTTP_ACCEPTED);
+        if(Auth::user()->can('delete',User::class,Article::class)){
+            return $this->sendResponse($this->articlerepository->delete($id),"Article supprimé");
+        }
+        else{
+            return $this->sendError("vous n'êtes pas autorisé à supprimer les articles", ["Echec"]);
+        }
+
     }
 }

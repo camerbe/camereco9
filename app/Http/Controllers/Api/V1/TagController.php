@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\TagRequest;
 use App\Repositories\TagRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Api\V1\BaseController;
+use Illuminate\Support\Facades\Auth;
 class TagController extends BaseController
 {
     protected $tagRepository;
@@ -26,8 +28,14 @@ class TagController extends BaseController
     public function index()
     {
         //
-        $tags = $this->tagRepository->findAll();
-        return $this->sendResponse($tags,"Liste des tags");
+        if(Auth::user()->can('viewAny',User::class)){
+            $tags = $this->tagRepository->findAll();
+            return $this->sendResponse($tags,"Liste des tags");
+        }
+        else{
+            return $this->sendError("Une erreur est survenue", ["Erreur"]);
+        }
+
 
 
     }
@@ -51,11 +59,21 @@ class TagController extends BaseController
     public function store(TagRequest $request)
     {
         //
-        $tag = $this->tagRepository->create($request->all());
-        return response()->json([
-            "tag"=>$tag,
-            "message"=>"Tag ajouté"
-        ],Response::HTTP_CREATED);
+        if(Auth::user()->can('create',User::class)){
+            $tag = $this->tagRepository->create($request->all());
+            return response()->json([
+                "sucess"=>true,
+                "tag"=>$tag,
+                "message"=>"Tag ajouté"
+            ],Response::HTTP_CREATED);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message"=>"Pas autorisé à insérer un Tag"
+            ],Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -67,11 +85,21 @@ class TagController extends BaseController
     public function show($id)
     {
         //
-        $tag = $this->tagRepository->findById($id);
-        return response()->json([
-            'Tag' => $tag,
-            "message" => "Tag trouvé"
-        ], Response::HTTP_FOUND);
+        if(Auth::user()->can('view',User::class,Tag::class)){
+            $tag = $this->tagRepository->findById($id);
+            return response()->json([
+                "sucess"=>true,
+                'Tag' => $tag,
+                "message" => "Tag trouvé"
+            ], Response::HTTP_FOUND);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -95,10 +123,20 @@ class TagController extends BaseController
     public function update(Request $request, $id)
     {
         //
-        $this->tagRepository->update($request->all(), $id);
-        return response()->json([
-            "message" => "Tag mis à jour"
-        ], Response::HTTP_ACCEPTED);
+        if(Auth::user()->can('update',User::class,Tag::class)){
+            $this->tagRepository->update($request->all(), $id);
+            return response()->json([
+                "sucess"=>true,
+                "message" => "Tag mis à jour"
+            ], Response::HTTP_ACCEPTED);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé à mettre un tag à jour"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**
@@ -110,9 +148,19 @@ class TagController extends BaseController
     public function destroy($id)
     {
         //
-        $this->tagRepository->delete($id);
-        return response()->json([
-            "message" => "Tag supprimé"
-        ], Response::HTTP_ACCEPTED);
+        if(Auth::user()->can('delete',User::class,Tag::class)){
+            $this->tagRepository->delete($id);
+            return response()->json([
+                "sucess"=>true,
+                "message" => "Tag supprimé"
+            ], Response::HTTP_ACCEPTED);
+        }
+        else{
+            return response()->json([
+                "sucess"=>false,
+                "message" => "Pas autorisé à supprimer un tag"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 }
