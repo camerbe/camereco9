@@ -12,10 +12,12 @@ class AuthController extends Controller
     public function login(Request $request){
         if(Auth::attempt(['email' => $request->email,'password'=>$request->password])){
             $user = Auth::user();
-            $sucess['token'] = $user->createToken('camereco')->accessToken;
+            $sucess['token'] = $user->createToken($user)->accessToken;
             $sucess['name'] = $user->nom.' '.$user->prenom;
-            $sucess['id'] = $user->id;
+            $role=$user->roles()->first();
+            $sucess['role'] = $role->shortrole;
             return response()->json([
+                'sucess'=>true,
                 'token' => $sucess,
                 'message' => "Utilisateur connecté avec succès",
             ], Response::HTTP_OK);
@@ -23,6 +25,7 @@ class AuthController extends Controller
         }
         else{
             return response()->json([
+                'sucess'=>false,
                 'message' => "Utilisateur non autorisé",
             ], Response::HTTP_UNAUTHORIZED);
         }

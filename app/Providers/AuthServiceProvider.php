@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Carbon\Carbon;
+use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -38,5 +40,7 @@ class AuthServiceProvider extends ServiceProvider
                 ->line('Cliquez sur le bouton ci-dessous pour vérifier votre adresse e-mail.')
                 ->action("Vérifier l'adresse e-mail", $url);
         });
+        //
+        Passport::tokensExpireIn(now()->addMinutes(30));
     }
 }

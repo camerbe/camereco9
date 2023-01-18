@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 */
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('articles/user/{user}', [ArticleController::class, 'articlebyuser']);
-    Route::get('logout', [AuthController::class, 'logout']);
+    Route::post('logout', [AuthController::class, 'logout']);
     Route::apiResources([
         'roles'      => RoleController::class,
         'users'      => UserController::class,
