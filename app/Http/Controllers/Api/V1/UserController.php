@@ -26,7 +26,7 @@ class UserController extends Controller
             $usrs= $this->userRepository->findAll();
             return response()->json([
                 "sucess"=>true,
-                "Utilisateurs"=>$usrs,
+                "users"=>$usrs,
                 "message"=>"Liste des Administrateurs",
 
             ],Response::HTTP_OK);
@@ -111,22 +111,22 @@ class UserController extends Controller
         }
 
     }
-    public function destroy($id)
-    {
-        //
-        if(Auth::user()->can('delete',User::clasS)){
-            $this->userRepository->delete($id);
-            return response()->json([
-                "sucess"=>true,
-                "message" => "Administrateur supprimé"
-            ], Response::HTTP_ACCEPTED);
-        }
-        else{
-            return response()->json([
-                "sucess"=>false,
-                "message" => "Pas autorisé à supprimer un administrateur"
-            ], Response::HTTP_UNAUTHORIZED);
-        }
+    // public function destroy($id)
+    // {
+    //     //
+    //     if(Auth::user()->can('delete',User::clasS)){
+    //         $this->userRepository->delete($id);
+    //         return response()->json([
+    //             "sucess"=>true,
+    //             "message" => "Administrateur supprimé"
+    //         ], Response::HTTP_ACCEPTED);
+    //     }
+    //     else{
+    //         return response()->json([
+    //             "sucess"=>false,
+    //             "message" => "Pas autorisé à supprimer un administrateur"
+    //         ], Response::HTTP_UNAUTHORIZED);
+    //     }
 
-    }
+    // }
 }

@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,17 +7,33 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { AuthService } from './shared/auth.service';
 import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserComponent } from './dashboard/user/user.component';
+import { DataService } from './shared/data.service';
+import { UserService } from './shared/user.service';
+import { CommonModule } from '@angular/common';
+import { UserCreationComponent } from './dashboard/user/user-creation/user-creation.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    UserComponent,
+    UserCreationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    CommonModule
   ],
   providers: [
+    UserService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

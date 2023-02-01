@@ -7,21 +7,36 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { LogedUser } from '../models/loged-user.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
+  private usr!: LogedUser;
   constructor(private authservice:AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    request=request.clone({
-     setHeaders:{
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type':'application/json',
-      'Authorization':`Bearer ${this.authservice.getToken()}.`,
 
-     }
-    });
+
+
+    this.authservice.logeduser.subscribe(res=>{
+      this.usr=res
+      return this.usr
+    })
+
+    if(this.usr!=null){
+      request=request.clone({
+
+      setHeaders:{
+        'Access-Control-Allow-Origin':'*',
+        'Content-Type':'application/json',
+        'Accept':'*/*',
+        'Authorization':`Bearer ${this.usr.token}`,
+
+        },
+      });
+    }
+
     return next.handle(request);
   }
+
 }
