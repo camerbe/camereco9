@@ -27,6 +27,7 @@
         }
         public function create(Array $input){
             $input['dimension'] = Str::title($input['dimension']);
+
             $dimensionId= parent::create($input)->id;
             return $this->findById($dimensionId) ;
         }
