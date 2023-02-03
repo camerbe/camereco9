@@ -27,6 +27,7 @@ export class LoginComponent {
   }
   onSubmit() {
     this.authservice.signin(this.loginForm.value)
-    this.router.navigateByUrl('/dashboard/user/add')
+    this.authservice.isLoggedIn ?
+      this.router.navigate(['/dashboard/user']) :this.router.navigateByUrl('login')
   }
 }

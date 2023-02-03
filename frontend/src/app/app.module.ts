@@ -14,6 +14,12 @@ import { DataService } from './shared/data.service';
 import { UserService } from './shared/user.service';
 import { CommonModule } from '@angular/common';
 import { UserCreationComponent } from './dashboard/user/user-creation/user-creation.component';
+import { UserStartComponent } from './dashboard/user/user-start/user-start.component';
+import { PubComponent } from './dashboard/pub/pub.component';
+import { PubStartComponent } from './dashboard/pub/pub-start/pub-start.component';
+import { DimensionComponent } from './dashboard/dimension/dimension.component';
+import { DimensionStartComponent } from './dashboard/dimension/dimension-start/dimension-start.component';
+import { DimensionCreationComponent } from './dashboard/dimension/dimension-creation/dimension-creation.component';
 
 
 
@@ -23,7 +29,13 @@ import { UserCreationComponent } from './dashboard/user/user-creation/user-creat
     LoginComponent,
     DashboardComponent,
     UserComponent,
-    UserCreationComponent
+    UserCreationComponent,
+    UserStartComponent,
+    PubComponent,
+    PubStartComponent,
+    DimensionComponent,
+    DimensionStartComponent,
+    DimensionCreationComponent
   ],
   imports: [
     BrowserModule,

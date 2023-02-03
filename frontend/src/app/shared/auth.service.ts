@@ -13,26 +13,37 @@ export class Credential{
 export class AuthService {
   private logeduserSubject!:BehaviorSubject<LogedUser>;
   public logeduser!:Observable<LogedUser>;
+
+  private isLoggedInSubject!:BehaviorSubject<boolean>
+  public isLoggedIn!:Observable<boolean>
+
+
+
   private baseURL:String='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) {
     this.logeduserSubject=new BehaviorSubject<LogedUser>(this.getToken());
-    this.logeduser=this.logeduserSubject.asObservable()
+    this.logeduser=this.logeduserSubject.asObservable();
+
+    this.isLoggedInSubject=new BehaviorSubject<boolean>(false);
+    this.isLoggedIn=this.isLoggedInSubject.asObservable();
   }
 
   signin(credential:Credential){
        return this.http.post(this.baseURL+'/login',credential)
        .subscribe((result)=>{
-        const usr:LogedUser=result as LogedUser
-        localStorage.setItem('currentUser',JSON.stringify(usr))
-        this.logeduserSubject.next(usr)
-        return usr
+          const usr:LogedUser=result as LogedUser
+          localStorage.setItem('currentUser',JSON.stringify(usr))
+          this.isLoggedInSubject.next(true);
+          this.logeduserSubject.next(usr)
+          return usr
        })
 
 
   }
   logout(){
     localStorage.removeItem('currentUser');
-    //this.logeduserSubject.next(this.getToken())
+    this.isLoggedInSubject.next(false)
+
   }
   public get currentUserValue():LogedUser{
     return this.logeduserSubject.value
@@ -45,5 +56,12 @@ export class AuthService {
     return this.logeduserSubject
     .subscribe(result=>result.token)
   }
+  loggedIn(){
 
+    return this.isLoggedIn.subscribe({
+      next:(res)=>res,
+      error:(e)=>false
+    })
+
+  }
 }

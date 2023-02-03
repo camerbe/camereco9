@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { User } from '../../models/user.model';
 import { UserService } from '../../shared/user.service';
@@ -12,37 +12,42 @@ import { UserService } from '../../shared/user.service';
 export class UserComponent implements OnInit {
 
   users!:User[]
-
   constructor(
     private userservice:UserService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private router:Router
     ){
 
   }
 
   getAll(){
-    this.userservice.getAll().subscribe((usrs)=>{
-      const [sucess,users]=Object.values(usrs)
-      this.users=users
-      return this.users
-      })
+    return this.userservice.getAll().subscribe({
+      next:(usrs)=>{
+        const [sucess,users]=Object.values(usrs)
+        this.users=users
+        return this.users
+      },
+      error:(e)=>{
+        console.log(e)
+      }
+    })
   }
+
+
   // create(){
   //   this.userservice.create().subscribe()
   // }
   ngOnInit(): void {
     this.getAll()
-
   }
-  deleteUser() {
-    let id=this.route.snapshot.params['id']
-    this.userservice.delete(id,null).subscribe(res=>{
-      if(res){
-        console.log(res)
-      }
-    })
-    this.route.params.subscribe((params:Params)=>{
-      id=params['id']
+  deleteUser(userId:any) {
+
+    let id=+userId
+    this.userservice.delete(id).subscribe({
+      next:(res)=>{
+        if(res) this.router.navigate(['/dashboard/user'])
+      },
+      error:(e)=>{console.log(e)}
     })
   }
 }

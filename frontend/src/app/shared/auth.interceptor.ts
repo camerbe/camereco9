@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.usr
     })
 
-    if(this.usr!=null){
+    if(this.usr!=null && this.authservice.isLoggedIn){
       request=request.clone({
 
       setHeaders:{
@@ -34,6 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
         },
       });
+
     }
 
     return next.handle(request);

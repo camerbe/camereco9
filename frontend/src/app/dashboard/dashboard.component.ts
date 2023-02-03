@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { LogedUser } from '../models/loged-user.model';
 import { User } from '../models/user.model';
@@ -15,19 +16,27 @@ export class DashboardComponent implements OnInit {
   @Input() users!:User[]
   constructor(
     private authservice:AuthService,
-    private userservice:UserService
+    private userservice:UserService,
+    private route:Router
     ){
 
   }
   ngOnInit() {
-   this.getCurrentUser()
-   this.getAllUser()
+    this.getAllUser()
   }
   getAllUser() {
+    this.getCurrentUser()
     this.userservice.getAll()
-    .subscribe(usrs=>{
-      const[sucess,users]=Object.values(usrs)
-      return this.users=users
+    .subscribe({
+      next:(usrs)=>{
+        const[sucess,users]=Object.values(usrs)
+        return this.users=users
+      },
+      error:(e)=>{
+        //console.log(e)
+        this.logout()
+        this.route.navigate(['/login'])
+      }
     })
   }
   getCurrentUser(){
