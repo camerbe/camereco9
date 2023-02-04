@@ -20,6 +20,7 @@ import { PubStartComponent } from './dashboard/pub/pub-start/pub-start.component
 import { DimensionComponent } from './dashboard/dimension/dimension.component';
 import { DimensionStartComponent } from './dashboard/dimension/dimension-start/dimension-start.component';
 import { DimensionCreationComponent } from './dashboard/dimension/dimension-creation/dimension-creation.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -42,7 +43,8 @@ import { DimensionCreationComponent } from './dashboard/dimension/dimension-crea
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    EditorModule
   ],
   providers: [
     UserService,

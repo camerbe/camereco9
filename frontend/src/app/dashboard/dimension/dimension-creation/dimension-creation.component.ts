@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogedUser } from 'src/app/models/loged-user.model';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -21,7 +21,7 @@ export class DimensionCreationComponent {
     ) {
 
       this.dimensionAddForm=this.fb.group({
-        dimension:[],
+        dimension:['',[Validators.required]],
         createdBy:[],
         lastmodifiedBy:[]
       })

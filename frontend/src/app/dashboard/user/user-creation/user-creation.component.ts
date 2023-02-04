@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
 
@@ -16,11 +16,11 @@ export class UserCreationComponent implements OnInit{
     private userservice:UserService,
     private router:Router) {
       this.userAddForm=this.fb.group({
-        nom:[require],
-        prenom:[require],
-        email:[require],
-        password:[require],
-        role:[require],
+        nom:['',[Validators.required]],
+        prenom:['',[Validators.required]],
+        email:['',[Validators.required,Validators.email]],
+        password:[[Validators.required,Validators.minLength(6)]],
+        role:[[Validators.required]],
 
       })
 
