@@ -27,6 +27,9 @@ export class DimensionCreationComponent {
       })
 
   }
+  get dimension(){
+    return this.dimensionAddForm.get('dimension')
+  }
   onSubmit() {
 
     this.authservice.logeduser.subscribe({

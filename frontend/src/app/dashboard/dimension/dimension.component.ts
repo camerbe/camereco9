@@ -46,6 +46,7 @@ export class DimensionComponent implements OnInit {
         }
       })
   }
+
   ngOnInit(): void {
    this.getAll()
   }

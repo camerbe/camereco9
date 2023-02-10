@@ -21,9 +21,15 @@ export class LoginComponent implements OnInit{
     private router:Router
   ){
     this.loginForm=this.fb.group({
-      email:['',[Validators.required]],
-      password:[],
+      email:['',[Validators.email]],
+      password:['',[Validators.required,Validators.minLength(8)]],
     })
+  }
+  get email(){
+    return this.loginForm.get('email')
+  }
+  get password(){
+    return this.loginForm.get('password')
   }
   ngOnInit(): void {
     this.authservice.logout
@@ -31,7 +37,28 @@ export class LoginComponent implements OnInit{
   onSubmit() {
 
     this.authservice.signin(this.loginForm.value)
-    this.authservice.isLoggedIn ?
-      this.router.navigate(['/dashboard/user']) :this.router.navigateByUrl('login')
+    this.authservice.isLoggedIn.subscribe({
+      next:(res)=>{
+        this.loginForm.patchValue({
+          email:'',
+          password:''
+        })
+        res? this.router.navigate(['/dashboard/user']): this.router.navigateByUrl('login')
+      },
+      error:(e)=>{
+        console.log(e)
+        this.router.navigateByUrl('login')
+      }
+    })
+    // if(this.authservice.isLoggedIn){
+    //   console.log(this.authservice.isLoggedIn.)
+    //   console.log(this.loginForm.value)
+    //   this.router.navigate(['/dashboard/user'])
+    // }
+    // else{
+    //   this.router.navigateByUrl('login')
+
+
+    // }
   }
 }

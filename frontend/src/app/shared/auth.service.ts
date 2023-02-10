@@ -30,12 +30,23 @@ export class AuthService {
 
   signin(credential:Credential){
        return this.http.post(this.baseURL+'/login',credential)
-       .subscribe((result)=>{
-          const usr:LogedUser=result as LogedUser
-          localStorage.setItem('currentUser',JSON.stringify(usr))
+       .subscribe({
+        next:(result)=>{
+          const usr:LogedUser=result as LogedUser;
+          localStorage.setItem('currentUser',JSON.stringify(usr));
           this.isLoggedInSubject.next(true);
-          this.logeduserSubject.next(usr)
-          return usr
+          this.logeduserSubject.next(usr);
+          return usr;
+        },
+        error:(e)=>{
+
+          if(e.status===401){
+            this.isLoggedInSubject.next(false);
+            this.loggedIn
+          }
+
+
+        }
        })
 
 

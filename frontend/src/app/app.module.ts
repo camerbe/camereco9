@@ -20,7 +20,8 @@ import { PubStartComponent } from './dashboard/pub/pub-start/pub-start.component
 import { DimensionComponent } from './dashboard/dimension/dimension.component';
 import { DimensionStartComponent } from './dashboard/dimension/dimension-start/dimension-start.component';
 import { DimensionCreationComponent } from './dashboard/dimension/dimension-creation/dimension-creation.component';
-import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { PubCreationComponent } from './dashboard/pub/pub-creation/pub-creation.component';
 
 
 
@@ -36,7 +37,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     PubStartComponent,
     DimensionComponent,
     DimensionStartComponent,
-    DimensionCreationComponent
+    DimensionCreationComponent,
+    PubCreationComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   ],
   providers: [
     UserService,
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

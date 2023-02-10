@@ -1,0 +1,63 @@
+<!-- Contact Form -->
+        <div class="mx-4">
+          <div class="grid grid-cols-1 md:grid-cols-1 w-10/12 mx-auto">
+
+            <form  [formGroup]="pubAddForm" (ngSubmit)="onSubmit()" class="p-6 flex flex-col justify-center">
+              <div class="flex flex-col">
+                <label for="lien" class="hidden">Lien</label>
+                <input
+                  type="text"
+                  name="lien"
+                  id="lien"
+                  placeholder="Lien"
+                  formControlName="lien"
+                  class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+                  <div *ngIf="lien?.invalid && lien?.touched" class="my-1 px-1 py-1 text-red-600">
+                    <span>* Le lien est requis </span>
+                  </div>
+              </div>
+
+              <div class="flex flex-col">
+                <label for="editeur" class="hidden">Editeur</label>
+                <input
+                  type="text"
+                  name="editeur"
+                  id="editeur"
+                  placeholder="Editeur"
+                  formControlName="editeur"
+                  class="w-6/12 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+                  <div *ngIf="editeur?.invalid && editeur?.touched" class="my-1 px-1 py-1 text-red-600">
+                    <span>* L'éditeur' est requis </span>
+                  </div>
+                </div>
+
+              <div class="flex flex-col mt-2">
+                <label for="datefinpub" class="hidden">Date fin</label>
+                <input
+                  type="date"
+                  name="datefinpub"
+                  id="datefinpub"
+                  placeholder="datefinpub"
+                  formControlName="datefinpub"
+                  class="w-6/12 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+                  <div *ngIf="datefinpub?.invalid && datefinpub?.touched" class="my-1 px-1 py-1 text-red-600">
+                    <span>* La date est requise </span>
+                  </div>
+              </div>
+              <div class="flex flex-col mt-2">
+                <label for="photo" class="hidden">Image</label>
+                <editor
+                  id="photo"
+                  formControlName="photo"
+                  [init]="init"
+              ></editor>
+              <div *ngIf="photo?.invalid && photo?.touched" class="my-1 px-1 py-1 text-red-600">
+                <span>* Le visuel est requis </span>
+              </div>
+              </div>
+              <button type="submit" [disabled]="pubAddForm.status=='INVALID'" class="md:w-32 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- ./Contact Form -->
+

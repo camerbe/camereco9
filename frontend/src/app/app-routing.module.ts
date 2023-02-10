@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DimensionCreationComponent } from './dashboard/dimension/dimension-creation/dimension-creation.component';
 import { DimensionStartComponent } from './dashboard/dimension/dimension-start/dimension-start.component';
 import { DimensionComponent } from './dashboard/dimension/dimension.component';
+import { PubCreationComponent } from './dashboard/pub/pub-creation/pub-creation.component';
 import { PubStartComponent } from './dashboard/pub/pub-start/pub-start.component';
 import { PubComponent } from './dashboard/pub/pub.component';
 import { UserCreationComponent } from './dashboard/user/user-creation/user-creation.component';
@@ -42,7 +43,7 @@ const routes: Routes = [
             component:UserCreationComponent
           },
           {
-            path:'user/:i',
+            path:'user/:id',
             component:UserComponent
           },
         ]
@@ -81,14 +82,14 @@ const routes: Routes = [
             path:'pub',
             component:PubComponent
           },
-          // {
-          //   path:'user/add',
-          //   component:UserCreationComponent
-          // },
-          // {
-          //   path:'user/:i',
-          //   component:UserComponent
-          // },
+          {
+            path:'pub/add',
+            component:PubCreationComponent
+          },
+          {
+            path:'pub/:i',
+            component:PubComponent
+          },
         ]
       }
 

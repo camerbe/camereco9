@@ -27,12 +27,16 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "src/app/tinymce", "output": "/tinymce/" }
             ],
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js",
+              "src/assets/js/common.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -104,4 +108,5 @@
   "cli": {
     "analytics": false
   }
+
 }
