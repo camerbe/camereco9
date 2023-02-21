@@ -3,5 +3,6 @@ export interface Dimension {
   dimension:string;
   createdBy:string;
   lastmodifiedBy:string;
+  updated_at:Date;
 }
 

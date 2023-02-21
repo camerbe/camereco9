@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/shared/user.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 export interface userResponse{
   sucess:boolean;
@@ -14,6 +15,7 @@ export interface userResponse{
     suspended:boolean
   };
   message:string;
+
 }
 @Component({
   selector: 'app-user-creation',
@@ -23,11 +25,12 @@ export interface userResponse{
 
 export class UserCreationComponent implements OnInit{
 [x: string]: any;
-
+  isTokenValid:boolean;
   userAddForm!: FormGroup;
 
   constructor(private fb:FormBuilder,
     private userservice:UserService,
+    private authservice:AuthService,
     private router:Router) {
       this.userAddForm=this.fb.group({
         nom:['',[Validators.required]],
@@ -57,6 +60,10 @@ export class UserCreationComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if (!this.authservice.loggedIn()){
+      this.authservice.logout
+      this.router.navigate(['/login'])
+    }
     this.router.navigate([this.router.url])
   }
   onSubmit() {

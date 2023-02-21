@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { LogedUser } from '../models/loged-user.model';
-import { User } from '../models/user.model';
-import { AuthService } from '../shared/auth.service';
-import { UserService } from '../shared/user.service';
+import { LogedUser } from '../shared/models/loged-user.model';
+import { User } from '../shared/models/user.model';
+import { AuthService } from '../shared/services/auth.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,9 @@ import { UserService } from '../shared/user.service';
 })
 export class DashboardComponent implements OnInit {
   currentUser!: LogedUser;
+  isTokenValid:boolean;
   @Input() users!:User[]
+
   constructor(
     private authservice:AuthService,
     private userservice:UserService,
@@ -22,18 +24,19 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit() {
+
+    if (!this.authservice.loggedIn()){
+      this.logout()
+      this.route.navigate(['/login'])
+    }
     this.getAllUser()
   }
   getAllUser() {
     this.getCurrentUser()
     this.userservice.getAll()
     .subscribe({
-      next:(usrs)=>{
-        const[sucess,users]=Object.values(usrs)
-        return this.users=users
-      },
+      next:(usrs)=>this.users=usrs["users"],
       error:(e)=>{
-        //console.log(e)
         this.logout()
         this.route.navigate(['/login'])
       }
@@ -42,12 +45,13 @@ export class DashboardComponent implements OnInit {
   getCurrentUser(){
     this.authservice.logeduser.subscribe(result=>{
       const usr:LogedUser={
-        fullName:result.fullName,
-        id:result.id,
-        message:result.message,
-        role:result.role,
-        sucess:result.sucess,
-        token:result.token
+        fullName: result.fullName,
+        id: result.id,
+        message: result.message,
+        role: result.role,
+        sucess: result.sucess,
+        token: result.token,
+        tokenduration: result.tokenduration
       }
       this.currentUser=usr
 

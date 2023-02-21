@@ -29,7 +29,7 @@
 
         }
         public function findAll(){
-            return Pub::orderBy('datefinpub','desc')->paginate();
+            return Pub::Where('datefinpub','>',now())->orderBy('datefinpub','desc')->paginate();
 
          }
     }

@@ -26,8 +26,8 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-//     \UniSharp\LaravelFilemanager\Lfm::routes();
-// });
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'guest']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 
 

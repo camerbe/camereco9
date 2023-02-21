@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/shared/user.service';
+import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-user-start',
@@ -10,11 +11,13 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class UserStartComponent implements OnInit {
 
-  users!:User[]
+  users!:User[];
   id!: Number;
+  isTokenValid:boolean;
   constructor(
     private userservice:UserService,
     private route:ActivatedRoute,
+    private authservice:AuthService,
     private router:Router) {
 
   }
@@ -35,6 +38,10 @@ export class UserStartComponent implements OnInit {
     console.log(`id=${this.route.snapshot.paramMap.get('id')}`)
   }
   ngOnInit(): void {
+    if (!this.authservice.loggedIn()){
+      this.authservice.logout
+      this.router.navigate(['/login'])
+    }
     this.getAll
   }
 

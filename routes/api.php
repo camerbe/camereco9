@@ -45,8 +45,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::get('articles/{pays}/{categorie}', [ArticleController::class, 'same']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['api', 'guest']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['api', 'guest']], function () {
+//     \UniSharp\LaravelFilemanager\Lfm::routes();
+// });
 
 

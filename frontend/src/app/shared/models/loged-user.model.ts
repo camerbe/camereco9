@@ -5,6 +5,7 @@ export interface LogedUser {
   role:String;
   id:BigInt;
   message:String;
+  tokenduration:Date;
 
 }
 

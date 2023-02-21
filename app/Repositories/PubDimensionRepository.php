@@ -1,7 +1,8 @@
 <?php
     namespace App\Repositories;
 
-    use App\Models\PubDimension;
+use App\Http\Resources\DimensionResource;
+use App\Models\PubDimension;
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
     use Illuminate\Support\Arr;
@@ -32,6 +33,8 @@
             return $this->findById($dimensionId) ;
         }
         public function findAll(){
-            return PubDimension::orderBy('dimension','asc')->paginate();
+            $pubdimensions= PubDimension::orderBy('dimension','asc')->paginate();
+            return DimensionResource::collection($pubdimensions);
+
         }
     }

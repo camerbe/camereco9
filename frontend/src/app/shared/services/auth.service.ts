@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/http'
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { LogedUser } from '../models/loged-user.model';
+import { LogedUser } from '../../shared/models/loged-user.model';
+import * as moment from 'moment';
 // Credentials
 export class Credential{
   email!: String;
@@ -33,17 +34,23 @@ export class AuthService {
        .subscribe({
         next:(result)=>{
           const usr:LogedUser=result as LogedUser;
+          const tokenEnd=moment(moment.now()).add(30,'m')
+          const formattedTokenEnd=Number(tokenEnd.format('YYYYMMDDHHmmss'))
+          const currDate=Number(moment(moment.now()).format('YYYYMMDDHHmmss'))
+          console.log(`formattedTokenEnd ${formattedTokenEnd} currDate ${currDate}`)
+          //usr.tokenduration=new Date(new Date().getTime()+(70*60*1000))
+          usr.tokenduration=tokenEnd.toDate()
           localStorage.setItem('currentUser',JSON.stringify(usr));
-          this.isLoggedInSubject.next(true);
+          this.isLoggedInSubject.next(currDate<=formattedTokenEnd);
           this.logeduserSubject.next(usr);
           return usr;
         },
         error:(e)=>{
 
-          if(e.status===401){
+          //if(e.status===401){
             this.isLoggedInSubject.next(false);
             this.loggedIn
-          }
+          //}
 
 
         }
@@ -60,19 +67,22 @@ export class AuthService {
     return this.logeduserSubject.value
   }
   getToken():LogedUser{
-    return (localStorage.getItem('currentUser')) as unknown as LogedUser ;
+    return JSON.parse(localStorage.getItem('currentUser')) as unknown as LogedUser ;
 
   }
   getRealToken(){
     return this.logeduserSubject
     .subscribe(result=>result.token)
   }
-  loggedIn(){
+  loggedIn():boolean{
+    const currentusr=this.getToken()
+    const currDate=(new Date())
+    const momentdate =Number(moment(currDate).format('YYYYMMDDHHmmss'))
+    const momenttokenduration=Number(moment(currentusr.tokenduration).format('YYYYMMDDHHmmss'))
+    //console.log(`currDate ${currDate} momentdate ${momentdate} momenttokenduration ${momenttokenduration}`)
+    return momentdate <=momenttokenduration
 
-    return this.isLoggedIn.subscribe({
-      next:(res)=>res,
-      error:(e)=>false
-    })
+
 
   }
 }

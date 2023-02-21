@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
-import { LogedUser } from '../models/loged-user.model';
-import { AuthService } from '../shared/auth.service';
+import { LogedUser } from '../shared/models/loged-user.model';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',

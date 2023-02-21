@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dimension } from 'src/app/models/dimension';
-import { AuthService } from 'src/app/shared/auth.service';
-import { DimensionService } from 'src/app/shared/dimension.service';
+import { Dimension } from 'src/app/shared/models/dimension';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { DimensionService } from 'src/app/shared/services/dimension.service';
 
 @Component({
   selector: 'app-dimension',
@@ -10,7 +10,7 @@ import { DimensionService } from 'src/app/shared/dimension.service';
   styleUrls: ['./dimension.component.less']
 })
 export class DimensionComponent implements OnInit {
-
+  isTokenValid:boolean;
   dimensions: Dimension[] = [];
   /**
    *
@@ -24,11 +24,14 @@ export class DimensionComponent implements OnInit {
 
   }
 
-  deleteDimension(id: bigint) {
+  deleteDimension(id:bigint) {
     this.dimensionservice.delete(id)
       .subscribe({
-        next:(res)=>{
-          if(res) this.router.navigate(['/dashboard/dimension'])
+        next:(res:Response)=>{
+          if(res.ok) {
+            this.getAll()
+            this.router.navigate(['/dashboard/dimension'])
+          }
         },
         error:(e)=>console.log(e)
 
@@ -38,7 +41,7 @@ export class DimensionComponent implements OnInit {
     return this.dimensionservice.getAll()
       .subscribe({
         next:(res)=>{
-          this.dimensions=Object.values(res)[0].data
+          this.dimensions=res["dimensions"]
           return this.dimensions
         },
         error:(e)=>{
@@ -48,6 +51,10 @@ export class DimensionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.authservice.loggedIn()){
+      this.authservice.logout
+      this.router.navigate(['/login'])
+    }
    this.getAll()
   }
 

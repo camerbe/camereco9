@@ -85,7 +85,7 @@ return [
      */
 
     'paginator' => [
-        'perPage' => 30,
+        'perPage' => 10,
     ],
 
     /*
@@ -137,9 +137,9 @@ return [
         'image/png',
     ],
 
-    'thumb_img_width'          => 200, // px
+    'thumb_img_width'          => 100, // px
 
-    'thumb_img_height'         => 200, // px
+    'thumb_img_height'         => 100, // px
 
     /*
     |--------------------------------------------------------------------------

@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { ActivatedRoute,  Params, Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
-import { User } from '../../models/user.model';
-import { UserService } from '../../shared/user.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from '../../shared/models/user.model';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -10,13 +11,14 @@ import { UserService } from '../../shared/user.service';
   styleUrls: ['./user.component.less']
 })
 export class UserComponent implements OnInit {
-
+  isTokenValid:boolean;
   users!:User[];
   id!: number;
   constructor(
     private userservice:UserService,
     private route:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private authservice:AuthService
     ){
 
   }
@@ -39,6 +41,11 @@ export class UserComponent implements OnInit {
   //   this.userservice.create().subscribe()
   // }
   ngOnInit(): void {
+
+    if (!this.authservice.loggedIn()){
+      this.authservice.logout
+      this.router.navigate(['/login'])
+    }
     this.getAll()
     this.route.params.subscribe({
       next:(params)=>{

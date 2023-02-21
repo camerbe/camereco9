@@ -8,6 +8,6 @@ import { DataService } from './data.service';
 export class PubService extends DataService {
 
   constructor(private httpclient:HttpClient) {
-    super("http://127.0.0.1:8000/api/users",httpclient);
+    super("http://127.0.0.1:8000/api/pubs",httpclient);
   }
 }

@@ -1,4 +1,5 @@
 export interface Pub {
+  [x: string]: any;
   id:BigInt;
   datefinpub:Date;
   lien:string;

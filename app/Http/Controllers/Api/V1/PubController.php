@@ -53,9 +53,10 @@ class PubController extends Controller
         //
         $pub = $this->pubRepository->create($request->all());
         return response()->json([
+            "sucess"=>true,
             "pub"=>$pub,
             "message"=>"Publicité ajoutée"
-        ],Response::HTTP_CREATED);
+        ],Response::HTTP_OK);
     }
 
     /**
@@ -69,9 +70,10 @@ class PubController extends Controller
         //
         $pub = $this->pubRepository->findById($id);
         return response()->json([
+            "sucess"=>true,
             'Pub' => $pub,
             "message" => "Publicité trouvée"
-        ], Response::HTTP_FOUND);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -97,8 +99,9 @@ class PubController extends Controller
         //
         $this->pubRepository->update($request->all(), $id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Publicité mise à jour"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -112,7 +115,8 @@ class PubController extends Controller
         //
         $this->pubRepository->delete($id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Publicité supprimée"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 }

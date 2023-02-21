@@ -26,7 +26,8 @@ class PubDimensionController extends Controller
         //
         $dimensions= $this->dimensionRepository->findAll();
         return response()->json([
-            "Dimensions"=>$dimensions,
+            "sucess"=>true,
+            "dimensions"=>$dimensions,
             "message"=>"Liste des dimensions",
 
         ],Response::HTTP_OK);
@@ -54,9 +55,10 @@ class PubDimensionController extends Controller
         //
         $dimension = $this->dimensionRepository->create($request->all());
         return response()->json([
+            "sucess"=>true,
             "dimension"=>$dimension,
             "message"=>"Dimension ajoutée"
-        ],Response::HTTP_CREATED);
+        ],Response::HTTP_OK);
     }
 
     /**
@@ -70,9 +72,10 @@ class PubDimensionController extends Controller
         //
         $dimension = $this->dimensionRepository->findById($id);
         return response()->json([
+            "sucess"=>true,
             'Dimension' => $dimension,
             "message" => "Dimension trouvée"
-        ], Response::HTTP_FOUND);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -98,8 +101,9 @@ class PubDimensionController extends Controller
         //
         $this->dimensionRepository->update($request->all(), $id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Dimension mise à jour"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -113,7 +117,8 @@ class PubDimensionController extends Controller
         //
         $this->dimensionRepository->delete($id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Dimension supprimée"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 }
