@@ -36,9 +36,9 @@ export class PubCreationComponent implements OnInit{
   lastDate:string;
   init={
     path_absolute : "/",
-    images_upload_url: 'http://localhost:8000/laravel-filemanager',
+    images_upload_url: 'http://localhost:8000/',
     //images_upload_url:"/",
-    relative_urls: true,
+    relative_urls: false,
     //selector:'editor#photo',
     base_url: '/tinymce',
     suffix: '.min',
