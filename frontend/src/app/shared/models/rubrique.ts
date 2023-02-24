@@ -1,4 +1,6 @@
-export class Rubrique {
-  id!: BigInt;
-  rubrique!: String;
+export interface Rubrique {
+  id: bigint;
+  rubrique: string;
+  createdBy: string;
+  lastmodifiedBy: string;
 }

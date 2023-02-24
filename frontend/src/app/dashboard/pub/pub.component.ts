@@ -20,7 +20,7 @@ export interface responsePub{
 })
 export class PubComponent implements OnInit{
   pubs!:Pub[]
-  isTokenValid:boolean;
+
   /**
    *
    */
@@ -69,12 +69,9 @@ export class PubComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.pubservice.delete(id).subscribe({
-          next:(res:Response)=>{
-            if (res.ok){
-              this.getAll()
-              location.reload()
-
-            }
+          next:()=>{
+            this.pubs=this.pubs.filter(p=>p.id!=id)
+            this.getAll()
           },
           error:(err)=>console.log(err)
         })

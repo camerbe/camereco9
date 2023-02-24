@@ -1,8 +1,8 @@
 export interface User {
-  id:BigInt;
-  fullname:String;
-  email:String;
+  id:bigint;
+  fullname:string;
+  email:string;
   suspended:boolean;
-  createdBy:String;
-  lastmodifiedBy:String;
+  createdBy:string;
+  lastmodifiedBy:string;
 }

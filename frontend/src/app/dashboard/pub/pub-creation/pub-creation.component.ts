@@ -129,9 +129,6 @@ export class PubCreationComponent implements OnInit{
         next:(res:Response)=>{
           const resPub=res["Pub"] as Pub
           this.lastDate=this.formatDate(resPub.datefinpub)
-          console.log(`lastDate ${this.lastDate}`)
-          // const momentDate=moment(resPub.datefinpub)
-          // resPub.datefinpub=moment(momentDate.format('DD/MM/YYYY HH:mm:ss')).toDate()
           this.pubAddForm.patchValue(resPub)
 
         },

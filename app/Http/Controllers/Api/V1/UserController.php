@@ -46,15 +46,16 @@ class UserController extends Controller
         if(Auth::user()->can('view',User::class)){
             $user = $this->userRepository->findById($id);
             return response()->json([
+                'sucess'=>true,
                 'Utilisateur' => $user,
                 "message" => "Administrateur trouvé"
-            ], Response::HTTP_FOUND);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
                 'sucess'=>false,
                 "message" => "Pas autorisé"
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_OK);
         }
 
     }
@@ -67,13 +68,13 @@ class UserController extends Controller
                 "sucess" => true,
                 "utilisateur" => $usr,
                 "message" => "Administrateur ajouté"
-            ], Response::HTTP_CREATED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
                 "sucess" => false,
                 "message" => "Pas autorisé à insérer les administrateurs"
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_OK);
         }
 
     }
@@ -83,8 +84,9 @@ class UserController extends Controller
         if(Auth::user()->can('update',User::class)){
             $this->userRepository->update($request->all(), $id);
             return response()->json([
+                "sucess" => true,
                 "message" => "Administrateur mis à jour"
-            ], Response::HTTP_ACCEPTED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
@@ -100,8 +102,9 @@ class UserController extends Controller
         if(Auth::user()->can('delete',User::class,Role::class)){
             $this->userRepository->delete($id);
             return response()->json([
+                "sucess" => true,
                 "message" => "Administrateur supprimé"
-            ], Response::HTTP_ACCEPTED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([

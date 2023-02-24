@@ -1,9 +1,9 @@
 export class User {
-  id!: BigInt;
-  nom!: String;
-  prenom!: String;
-  email!: String;
-  password!: String;
-  role!: BigInt;
+  id!: bigint;
+  nom!: string;
+  prenom!: string;
+  email!: string;
+  password!: string;
+  role!: bigint;
 
 }

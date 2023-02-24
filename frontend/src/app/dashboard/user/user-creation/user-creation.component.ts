@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs';
+import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -25,13 +27,15 @@ export interface userResponse{
 
 export class UserCreationComponent implements OnInit{
 [x: string]: any;
-  isTokenValid:boolean;
+  isAddMode:boolean;
+  id:number;
   userAddForm!: FormGroup;
 
   constructor(private fb:FormBuilder,
     private userservice:UserService,
     private authservice:AuthService,
-    private router:Router) {
+    private router:Router,
+    private route:ActivatedRoute) {
       this.userAddForm=this.fb.group({
         nom:['',[Validators.required]],
         prenom:['',[Validators.required]],
@@ -64,7 +68,21 @@ export class UserCreationComponent implements OnInit{
       this.authservice.logout
       this.router.navigate(['/login'])
     }
-    this.router.navigate([this.router.url])
+    this.id = +this.route.snapshot.params['id'];
+    this.isAddMode=!this.id
+    if(!this.isAddMode){
+      this.userservice.show(this.id).
+      pipe(first())
+      .subscribe({
+        next:(res:Response)=>{
+          const resUser=res["Utilisateur"] as User
+          this.userAddForm.patchValue(resUser)
+
+        },
+        error:(err)=>{console.log(err)}
+      })
+    }
+    //this.router.navigate([this.router.url])
   }
   onSubmit() {
     this.userservice.create(this.userAddForm.value)

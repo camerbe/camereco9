@@ -6,6 +6,9 @@
     use App\Repositories\BaseRepository;
     use Illuminate\Support\Arr;
     use App\Http\Resources\CategorieResource;
+    use Carbon\Carbon;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Cache;
 
     class CategorieRepository extends BaseRepository  {
 
@@ -35,7 +38,24 @@
             //return $this->findById($categorieId);
         }
         public function findAll(){
+            if($categories=Cache::get('categorie-list')){
+                return CategorieResource::collection($categories);
+            }
             $categories= Categorie::orderBy('categorie','asc')->paginate();
+            Cache::set('categorie-list',$categories,Carbon::now()->addMinutes(30));
             return CategorieResource::collection($categories);
+        }
+        public function findAllAndPaginate(Request $request){
+            $page=$request->input('page',default:1);
+            $categories=Cache::remember('categorie-list',Carbon::now()->addMinutes(30) , fn ()=>Categorie::orderBy('categorie','asc')->get());        Categorie::orderBy('categorie','asc')->get();
+            $total=$categories->count();
+            return [
+                'data'=>$categories->forPage($page,5)->values(),
+                'meta'=>[
+                    'total'=>$total,
+                    'page'=>$page,
+                    'last_page'=>ceil($total/5)
+                ]
+            ];
         }
     }

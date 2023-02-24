@@ -27,6 +27,7 @@ class RubriqueController extends Controller
         //
         $rubrique= $this->rubriquerepository->findAll();
         return response()->json([
+            "sucess"=>true,
             "Rubriques"=>$rubrique,
             "message"=>"Liste des rubriques",
 
@@ -54,9 +55,10 @@ class RubriqueController extends Controller
         //
         $rubrique = $this->rubriquerepository->create($request->all());
         return response()->json([
+            "sucess"=>true,
             "rubrique" => $rubrique,
             "message" => "Rubrique ajoutée"
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -70,9 +72,10 @@ class RubriqueController extends Controller
         //
         $rubrique = $this->rubriquerepository->findById($id);
         return response()->json([
+            "sucess"=>true,
             'rubrique' => $rubrique,
             "message" => "Rubrique trouvée"
-        ], Response::HTTP_FOUND);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -98,8 +101,9 @@ class RubriqueController extends Controller
         //
         $this->rubriquerepository->update($request->all(), $id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Rubrique mise à jour"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -113,8 +117,9 @@ class RubriqueController extends Controller
         //
         $this->rubriquerepository->delete($id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Rubrique supprimée"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 
 }

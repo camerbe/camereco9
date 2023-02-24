@@ -1,0 +1,33 @@
+<div class="align-items-end">
+  <caption class="flex flex-row justify-end  text-left rounded-t-lg bg-blue-500 p-6 text-lg font-semibold text-left text-gray-100 bg-white dark:text-white dark:bg-gray-800">
+    <div class="text-right flex justify-between w-full">
+      <p class="text-2xl items-center">Rubrique</p>
+    </div>
+
+  <div class=" shadow-2xl">
+
+      <a [routerLink]="['/dashboard/rubrique/add']" class="flex-auto mr-2  right-0 mb-1 no-underline bg-blue-800 flex w-full bg-white shadow-lg rounded-lg py-2 px-2 hover:bg-blue-600  hover:underline hover:text-blue-200">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-100">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+          </svg>
+        </div>
+        <p class="px-2 inset-0 text-xl font-semibold leading-5 text-left text-gray-100">Ajout</p>
+      </a>
+  </div>
+
+    <div class=" shadow-2xl">
+      <a [routerLink]="['/dashboard/rubrique']" class="flex-auto mr-2  left-30 mb-1 no-underline bg-red-700 flex w-full bg-white shadow-lg rounded-lg py-2 px-2 hover:bg-red-600  hover:underline hover:text-red-200">
+        <div>
+
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-100">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+          </svg>
+
+        </div>
+        <p class="px-2 inset-0 text-xl font-semibold leading-5 text-left text-gray-100">Liste</p>
+      </a>
+    </div>
+  </caption>
+</div>
+<router-outlet></router-outlet>

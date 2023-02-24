@@ -1,0 +1,65 @@
+<!-- Contact Form -->
+<div class="mx-4">
+  <div class="grid grid-cols-1 md:grid-cols-1 w-10/12 mx-auto">
+    <form [formGroup]="categorieAddForm" (ngSubmit)="onSubmit()" class="p-6 flex flex-col justify-center">
+      <div class="flex flex-col">
+        <label for="categorie" class="hidden">Catégorie</label>
+        <input
+          type="text"
+          name="categorie"
+          id="categorie"
+          placeholder="Catégorie"
+          formControlName="categorie"
+          class="w-30 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+          />
+          <div *ngIf="categorie?.invalid && categorie?.touched" class="my-1 px-1 py-1 text-red-600">
+            <span>* La catégorie est requise </span>
+          </div>
+      </div>
+      <div class="flex flex-col">
+        <label for="lien" class="hidden">createdBy</label>
+        <input
+          type="hidden"
+          name="createdBy"
+          id="createdBy"
+          placeholder="createdBy"
+          formControlName="createdBy"
+          class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+      </div>
+      <div class="flex flex-col">
+        <label for="lien" class="hidden">lastmodifiedBy</label>
+        <input
+          type="hidden"
+          name="lastmodifiedBy"
+          id="lastmodifiedBy"
+          placeholder="lastmodifiedBy"
+          formControlName="lastmodifiedBy"
+          class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+      </div>
+
+
+        <div class="flex flex-col mt-2">
+          <label for="rubrique_id" class="hidden">Rubrique</label>
+          <select
+            name="rubrique_id"
+            (change)="onChange($event)"
+            class="w-6/12 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+            id="rubrique_id"
+            formControlName="rubrique_id">
+            <option value="0">Votre Choix</option>
+            <option *ngFor="let rubrique of rubriques" value="{{rubrique.id }}">{{ rubrique.rubrique }}</option>
+          </select>
+          <div *ngIf="selectedRubriqueId===0" class="my-1 px-1 py-1 text-red-600">
+            <span>* La rubrique est requise </span>
+          </div>
+        </div>
+
+      <button *ngIf="isAddMode" type="submit" [disabled]="categorieAddForm.status=='INVALID'" class="md:w-32 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Submit</button>
+      <button *ngIf="!isAddMode" type="submit" [disabled]="categorieAddForm.status=='INVALID'" class="md:w-48 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Mettre à jour</button>
+    </form>
+  </div>
+</div>
+<!-- ./Contact Form -->
+

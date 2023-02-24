@@ -37,8 +37,6 @@ export class AuthService {
           const tokenEnd=moment(moment.now()).add(30,'m')
           const formattedTokenEnd=Number(tokenEnd.format('YYYYMMDDHHmmss'))
           const currDate=Number(moment(moment.now()).format('YYYYMMDDHHmmss'))
-          console.log(`formattedTokenEnd ${formattedTokenEnd} currDate ${currDate}`)
-          //usr.tokenduration=new Date(new Date().getTime()+(70*60*1000))
           usr.tokenduration=tokenEnd.toDate()
           localStorage.setItem('currentUser',JSON.stringify(usr));
           this.isLoggedInSubject.next(currDate<=formattedTokenEnd);

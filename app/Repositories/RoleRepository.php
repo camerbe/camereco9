@@ -3,9 +3,11 @@
 
     use App\Models\User;
     use App\Models\Role;
+    use Carbon\Carbon;
+    use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
-use App\Http\Resources\RoleResource;
+    use App\Http\Resources\RoleResource;
     use Illuminate\Support\Arr;
 
     class RoleRepository extends BaseRepository  {
@@ -39,8 +41,14 @@ use App\Http\Resources\RoleResource;
             return  new RoleResource($this->findById($roleId)) ;
         }
         public function findAll(){
+            if($roles=Cache::get('role-list')){
+                return RoleResource::collection($roles);
+            }
             $roles=  Role::orderBy('role','asc')->paginate();
+            Cache::set('role-list',$roles,Carbon::now()->addMinutes(30));
             return RoleResource::collection($roles);
 
          }
+
+
     }

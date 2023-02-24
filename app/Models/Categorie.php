@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Categorie extends Model
 {
@@ -20,12 +21,21 @@ class Categorie extends Model
     {
         return $this->hasMany(Article::class);
     }
-    // public function rubriques()
-    // {
-    //     return $this->hasMany(Rubrique::class);
-    // }
+    protected static function boot(){
+        parent::boot();
+        Categorie::created(function($model){
+            Cache::forget('categorie-list');
+        });
+        Categorie::deleted(function($model){
+            Cache::forget('categorie-list');
+        });
+        Categorie::updated(function($model){
+            Cache::forget('categorie-list');
+        });
+    }
     public function rubrique()
     {
         return $this->belongsTo(Rubrique::class);
     }
+
 }

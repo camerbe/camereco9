@@ -43,7 +43,6 @@ export class DimensionCreationComponent implements OnInit{
       pipe(first())
       .subscribe({
         next:(res:Response)=>{
-          console.log(`res ${res}`)
           const resDim=res["Dimension"] as Dimension
           this.dimensionAddForm.patchValue(resDim)
 

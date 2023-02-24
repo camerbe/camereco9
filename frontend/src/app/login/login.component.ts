@@ -50,15 +50,6 @@ export class LoginComponent implements OnInit{
         this.router.navigateByUrl('login')
       }
     })
-    // if(this.authservice.isLoggedIn){
-    //   console.log(this.authservice.isLoggedIn.)
-    //   console.log(this.loginForm.value)
-    //   this.router.navigate(['/dashboard/user'])
-    // }
-    // else{
-    //   this.router.navigateByUrl('login')
 
-
-    // }
   }
 }

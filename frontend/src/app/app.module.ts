@@ -24,6 +24,16 @@ import { PubCreationComponent } from './dashboard/pub/pub-creation/pub-creation.
 import * as fr  from '@angular/common/locales/fr-BE'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SweetAlertComponent } from './shared/components/sweet-alert/sweet-alert.component';
+import { RubriqueComponent } from './dashboard/rubrique/rubrique.component';
+import { RubriqueStartComponent } from './dashboard/rubrique/rubrique-start/rubrique-start.component';
+import { RubriqueCreationComponent } from './dashboard/rubrique/rubrique-creation/rubrique-creation.component';
+import { CategorieComponent } from './dashboard/categorie/categorie.component';
+import { CategorieStartComponent } from './dashboard/categorie/categorie-start/categorie-start.component';
+import { CategorieCreationComponent } from './dashboard/categorie/categorie-creation/categorie-creation.component';
+import { RoleComponent } from './dashboard/role/role.component';
+import { RoleCreationComponent } from './dashboard/role/role-creation/role-creation.component';
+import { RoleStartComponent } from './dashboard/role/role-start/role-start.component';
+
 
 
 @NgModule({
@@ -40,7 +50,17 @@ import { SweetAlertComponent } from './shared/components/sweet-alert/sweet-alert
     DimensionStartComponent,
     DimensionCreationComponent,
     PubCreationComponent,
-    SweetAlertComponent
+    SweetAlertComponent,
+    RubriqueComponent,
+    RubriqueStartComponent,
+    RubriqueCreationComponent,
+    CategorieComponent,
+    CategorieStartComponent,
+    CategorieCreationComponent,
+    RoleComponent,
+    RoleCreationComponent,
+    RoleStartComponent,
+
 
   ],
   imports: [

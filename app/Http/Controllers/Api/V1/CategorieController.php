@@ -9,6 +9,7 @@ use App\Repositories\CategorieRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\CategorieRequest;
 use App\Http\Controllers\Api\V1\BaseController;
+use App\Http\Resources\ArticleResource;
 class CategorieController extends BaseController
 {
     protected $categorieRepository;
@@ -25,8 +26,13 @@ class CategorieController extends BaseController
     public function index()
     {
         //
-        $categorie= $this->categorieRepository->findAll();
-        return $this->sendResponse($categorie,"Liste des categories");
+        $categories= $this->categorieRepository->findAll();
+        return response()->json([
+            "sucess"=>true,
+            "categories"=>$categories,
+            "message"=>"Liste des catégories",
+
+        ],Response::HTTP_OK);
     }
 
     /**
@@ -49,7 +55,11 @@ class CategorieController extends BaseController
     {
         //
         $categorie = $this->categorieRepository->create($request->all());
-        return $this->s;
+        return response()->json([
+            "sucess"=>true,
+            "categorie" => $categorie,
+            "message" => "Catégorie ajoutée"
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -63,9 +73,10 @@ class CategorieController extends BaseController
         //
         $categorie = $this->categorieRepository->findById($id);
         return response()->json([
-            'Categorie' => $categorie,
+            "sucess"=>true,
+            'categorie' => $categorie,
             "message" => "Categorie trouvée"
-        ], Response::HTTP_FOUND);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -91,8 +102,9 @@ class CategorieController extends BaseController
         //
         $this->categorieRepository->update($request->all(), $id);
         return response()->json([
+            "sucess"=>true,
             "message" => "Catégorie mise à jour"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -107,6 +119,6 @@ class CategorieController extends BaseController
         $this->categorieRepository->delete($id);
         return response()->json([
             "message" => "Catégorie supprimée"
-        ], Response::HTTP_ACCEPTED);
+        ], Response::HTTP_OK);
     }
 }
