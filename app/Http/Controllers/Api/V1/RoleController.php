@@ -69,7 +69,7 @@ class RoleController extends Controller
                 "sucess"=>true,
                 "role" => $role,
                 "message" => "Role ajouté"
-            ], Response::HTTP_CREATED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
@@ -95,7 +95,7 @@ class RoleController extends Controller
                 "sucess"=>true,
                 'role' => $role,
                 "message" => "Rôle trouvé"
-            ], Response::HTTP_FOUND);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
@@ -132,7 +132,7 @@ class RoleController extends Controller
             return response()->json([
                 "sucess"=>true,
                 "message" => "Role mis à jour"
-            ], Response::HTTP_ACCEPTED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
@@ -157,7 +157,7 @@ class RoleController extends Controller
             return response()->json([
                 "sucess"=>true,
                 "message" => "Role supprimé"
-            ], Response::HTTP_ACCEPTED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([

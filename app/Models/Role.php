@@ -26,10 +26,10 @@ class Role extends Model
         Role::created(function($model){
             Cache::forget('role-list');
         });
-        Categorie::deleted(function($model){
+        Role::deleted(function($model){
             Cache::forget('role-list');
         });
-        Categorie::updated(function($model){
+        Role::updated(function($model){
             Cache::forget('role-list');
         });
     }

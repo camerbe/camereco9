@@ -10,6 +10,9 @@ import { DimensionComponent } from './dashboard/dimension/dimension.component';
 import { PubCreationComponent } from './dashboard/pub/pub-creation/pub-creation.component';
 import { PubStartComponent } from './dashboard/pub/pub-start/pub-start.component';
 import { PubComponent } from './dashboard/pub/pub.component';
+import { RoleCreationComponent } from './dashboard/role/role-creation/role-creation.component';
+import { RoleStartComponent } from './dashboard/role/role-start/role-start.component';
+import { RoleComponent } from './dashboard/role/role.component';
 import { RubriqueCreationComponent } from './dashboard/rubrique/rubrique-creation/rubrique-creation.component';
 import { RubriqueStartComponent } from './dashboard/rubrique/rubrique-start/rubrique-start.component';
 import { RubriqueComponent } from './dashboard/rubrique/rubrique.component';
@@ -186,6 +189,37 @@ const routes: Routes = [
             path:'categorie/edit/:id',
             title: 'Edition  categories',
             component:CategorieCreationComponent
+          }
+        ]
+      },
+      {
+        path:'',
+        component:RoleStartComponent,children:[
+          {
+            path:'',redirectTo:'role',
+            title: 'liste des roles',
+            pathMatch:'full'
+
+          },
+          {
+            path:'role',
+            title: 'liste des roles',
+            component:RoleComponent
+          },
+          {
+            path:'role/add',
+            title: 'Ajout des roles',
+            component:RoleCreationComponent
+          },
+          {
+            path:'role/:id',
+            title: 'Cherche  roles',
+            component:RoleComponent
+          },
+          {
+            path:'role/edit/:id',
+            title: 'Edition  roles',
+            component:RoleCreationComponent
           }
         ]
       },
