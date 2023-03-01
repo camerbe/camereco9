@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->RegisterPubRepo();
         $this->RegisterRubriqueRepo();
         $this->RegisterArticleRepo();
+        $this->RegisterPaysRepo();
     }
 
     public function RegisterUserRepo(){
@@ -57,5 +58,8 @@ class AppServiceProvider extends ServiceProvider
     }
     public function RegisterArticleRepo(){
         return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\ArticleRepository');
+    }
+    public function RegisterPaysRepo(){
+        return $this->app->bind('App\Repositories\BaseRepository','App\Repositories\PaysRepository');
     }
 }

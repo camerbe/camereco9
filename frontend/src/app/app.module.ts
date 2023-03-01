@@ -33,6 +33,9 @@ import { CategorieCreationComponent } from './dashboard/categorie/categorie-crea
 import { RoleComponent } from './dashboard/role/role.component';
 import { RoleCreationComponent } from './dashboard/role/role-creation/role-creation.component';
 import { RoleStartComponent } from './dashboard/role/role-start/role-start.component';
+import { PaysStartComponent } from './dashboard/pays/pays-start/pays-start.component';
+import { PaysCreationComponent } from './dashboard/pays/pays-creation/pays-creation.component';
+import { PaysComponent } from './dashboard/pays/pays.component';
 
 
 
@@ -60,6 +63,9 @@ import { RoleStartComponent } from './dashboard/role/role-start/role-start.compo
     RoleComponent,
     RoleCreationComponent,
     RoleStartComponent,
+    PaysStartComponent,
+    PaysCreationComponent,
+    PaysComponent,
 
 
   ],

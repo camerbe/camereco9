@@ -36,7 +36,7 @@ export class PubCreationComponent implements OnInit{
   lastDate:string;
   init={
     path_absolute : "/",
-    images_upload_url: 'http://localhost:8000/',
+    //images_upload_url: 'http://localhost:8000/',
     //images_upload_url:"/",
     relative_urls: false,
     //selector:'editor#photo',
@@ -46,7 +46,7 @@ export class PubCreationComponent implements OnInit{
     height: 200,
     menubar: 'file edit view insert format tools table tc help',
     toolbar_sticky: false,
-    image_advtab: true,
+    //image_advtab: true,
     file_picker_callback : function(callback, value, meta) {
       var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
       var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
@@ -66,10 +66,13 @@ export class PubCreationComponent implements OnInit{
         height : y * 0.8,
         //resizable : 'yes',
         //close_previous : 'no',
+
         onMessage: (api, message) => {
+          console.log(`message ${message['content']}`);
           callback(message['content'],'*');
-          console.log(`Le message ${message['content']}`)
+
         }
+
       });
     },
     plugins: [

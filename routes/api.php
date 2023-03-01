@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\RoleController;
+use App\Http\Controllers\Api\V1\PaysController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\TagController;
 use App\Http\Controllers\Api\V1\CategorieController;
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         'dimensions' => PubDimensionController::class,
         'pubs'       => PubController::class,
         'articles'   => ArticleController::class,
+        'pays'       => PaysController::class,
     ]);
 });
 

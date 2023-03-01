@@ -7,6 +7,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DimensionCreationComponent } from './dashboard/dimension/dimension-creation/dimension-creation.component';
 import { DimensionStartComponent } from './dashboard/dimension/dimension-start/dimension-start.component';
 import { DimensionComponent } from './dashboard/dimension/dimension.component';
+import { PaysCreationComponent } from './dashboard/pays/pays-creation/pays-creation.component';
+import { PaysStartComponent } from './dashboard/pays/pays-start/pays-start.component';
+import { PaysComponent } from './dashboard/pays/pays.component';
 import { PubCreationComponent } from './dashboard/pub/pub-creation/pub-creation.component';
 import { PubStartComponent } from './dashboard/pub/pub-start/pub-start.component';
 import { PubComponent } from './dashboard/pub/pub.component';
@@ -220,6 +223,37 @@ const routes: Routes = [
             path:'role/edit/:id',
             title: 'Edition  roles',
             component:RoleCreationComponent
+          }
+        ]
+      },
+      {
+        path:'',
+        component:PaysStartComponent,children:[
+          {
+            path:'',redirectTo:'pays',
+            title: 'liste des pays',
+            pathMatch:'full'
+
+          },
+          {
+            path:'pays',
+            title: 'liste des pays',
+            component:PaysComponent
+          },
+          {
+            path:'pays/add',
+            title: 'Ajout des pays',
+            component:PaysCreationComponent
+          },
+          {
+            path:'pays/:code',
+            title: 'Cherche  pays',
+            component:PaysComponent
+          },
+          {
+            path:'pays/edit/:code',
+            title: 'Edition  pays',
+            component:PaysCreationComponent
           }
         ]
       },

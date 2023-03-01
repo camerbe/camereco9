@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pays;
+use App\Repositories\PaysRepository;
+
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaysController extends Controller
 {
+    protected $paysrepository;
+
+
+    public function __construct(PaysRepository $paysrepository){
+        $this->paysrepository=$paysrepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,17 +25,15 @@ class PaysController extends Controller
     public function index()
     {
         //
+        $countries= $this->paysrepository->findAll();
+        return response()->json([
+            "sucess"=>true,
+            "countries"=>$countries,
+            "message"=>"Liste des pays",
+
+        ],Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,6 +44,12 @@ class PaysController extends Controller
     public function store(Request $request)
     {
         //
+        $bled = $this->paysrepository->create($request->all());
+        return response()->json([
+            "sucess"=>true,
+            "pays" => $bled,
+            "message" => "Pays ajouté"
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -45,21 +58,17 @@ class PaysController extends Controller
      * @param  \App\Models\Pays  $pays
      * @return \Illuminate\Http\Response
      */
-    public function show(Pays $pays)
+    public function show($id)
     {
         //
+        $pays = $this->paysrepository->findById($id);
+        return response()->json([
+            "sucess"=>true,
+            'pays' => $pays,
+            "message" => "Pays trouvé"
+        ], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pays  $pays
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pays $pays)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +77,14 @@ class PaysController extends Controller
      * @param  \App\Models\Pays  $pays
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pays $pays)
+    public function update(Request $request, $id)
     {
         //
+        $this->paysrepository->update($request->all(), $id);
+        return response()->json([
+            "sucess"=>true,
+            "message" => "Pays mis à jour"
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -79,8 +93,13 @@ class PaysController extends Controller
      * @param  \App\Models\Pays  $pays
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pays $pays)
+    public function destroy($id)
     {
         //
+        $this->paysrepository->delete($id);
+        return response()->json([
+            "sucess"=>true,
+            "message" => "Pays supprimé"
+        ], Response::HTTP_OK);
     }
 }

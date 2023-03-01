@@ -3,6 +3,8 @@
 
     use App\Models\User;
     use App\Models\Rubrique;
+    use Carbon\Carbon;
+    use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
     use App\Http\Resources\RubriqueResource;
@@ -35,8 +37,11 @@
             return  new RubriqueResource($this->findById($rubriqueId)) ;
         }
         public function findAll(){
+            if($rubriques=Cache::get('rubrique-list')){
+                return RubriqueResource::collection($rubriques);
+            }
             $rubriques=Rubrique::orderBy('rubrique','asc')->paginate();
+            Cache::set('rubrique-list',$rubriques,Carbon::now()->addMinutes(30));
             return RubriqueResource::collection($rubriques);
-
          }
     }

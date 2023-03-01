@@ -1,0 +1,77 @@
+<div class="mx-4">
+  <div class="grid grid-cols-1 md:grid-cols-1 w-6/12 mx-auto">
+
+    <form [formGroup]="paysAddForm" (ngSubmit)="onSubmit()" class="p-6 flex flex-col justify-center">
+      <div class="flex flex-col">
+        <label for="code" class="hidden">Code</label>
+        <input
+          type="text"
+          name="code"
+          id="code"
+          placeholder="Code"
+          required
+          formControlName="code"
+          class="w-20 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+          <div *ngIf="code?.invalid && code?.touched" class="my-1 px-1 py-1 text-red-600">
+            <span>* Le code est requis</span>
+          </div>
+        </div>
+      <div class="flex flex-col">
+        <label for="pays" class="hidden">Pays</label>
+        <input
+          type="text"
+          name="pays"
+          id="pays"
+          placeholder="Pays"
+          formControlName="pays"
+          class="w-50 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+          <div *ngIf="pays?.invalid && pays?.touched" class="my-1 px-1 py-1 text-red-600">
+            <span>* Le pays est requis</span>
+          </div>
+        </div>
+
+      <div class="flex flex-col mt-2">
+        <label for="country" class="hidden">Country</label>
+        <input
+          type="text"
+          name="country"
+          id="country"
+          placeholder="country"
+          formControlName="country"
+          class="w-50 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+          <div *ngIf="country?.invalid && country?.touched" class="my-1 px-1 py-1 text-red-600">
+            <span>* Le pays en anglais est requis</span>
+          </div>
+
+      </div>
+      <div class="flex flex-col">
+        <label for="lien" class="hidden">createdBy</label>
+        <input
+          type="hidden"
+          name="createdBy"
+          id="createdBy"
+          placeholder="createdBy"
+          formControlName="createdBy"
+          class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+      </div>
+      <div class="flex flex-col">
+        <label for="lien" class="hidden">lastmodifiedBy</label>
+        <input
+          type="hidden"
+          name="lastmodifiedBy"
+          id="lastmodifiedBy"
+          placeholder="lastmodifiedBy"
+          formControlName="lastmodifiedBy"
+          class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+      </div>
+
+
+      <button type="submit" [disabled]="paysAddForm.status=='INVALID'" class="md:w-32 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Submit</button>
+    </form>
+  </div>
+</div>
+<!-- ./Contact Form -->
+
