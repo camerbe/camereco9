@@ -2,6 +2,8 @@
     namespace App\Repositories;
 
     use App\Models\Tag;
+    use Carbon\Carbon;
+    use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
     use App\Http\Resources\RoleResource;
@@ -36,6 +38,11 @@
             return $this->findById($tagId) ;
         }
         public function findAll(){
-            return Tag::orderBy('tag','asc')->paginate();
+            if($tags=Cache::get('tag-list')){
+                return $tags;
+            }
+            $tags=Tag::orderBy('tag','asc')->get();
+            Cache::set('tag-list',$tags,Carbon::now()->addMinutes(30));
+            return $tags;
         }
     }

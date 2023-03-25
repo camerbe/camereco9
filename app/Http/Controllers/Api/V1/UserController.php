@@ -82,7 +82,7 @@ class UserController extends Controller
     {
         //
         if(Auth::user()->can('update',User::class)){
-            $this->userRepository->update($request->all(), $id);
+            $this->userRepository->update($request->except(['password']), $id);
             return response()->json([
                 "sucess" => true,
                 "message" => "Administrateur mis à jour"

@@ -1,0 +1,18 @@
+<app-site-header></app-site-header>
+<section class="text-gray-800 bg-gray-100/50">
+  <div class="p-6 py-12 text-gray-900">
+    <div class="container mx-auto">
+      <ng-adsense
+        [display]="'inline-block'"
+        [adtest]="'on'"
+        [fullWidthResponsive]="true"
+        [className]="'adsbygoogle'"
+        [height]="90"
+        [width]="728"
+        [adSlot]="9242682936"
+      ></ng-adsense>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</section>
+<app-site-footer></app-site-footer>

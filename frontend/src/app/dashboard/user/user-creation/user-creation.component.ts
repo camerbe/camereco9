@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
+import { Role } from 'src/app/shared/models/role.model';
+import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -26,9 +27,10 @@ export interface userResponse{
 })
 
 export class UserCreationComponent implements OnInit{
-[x: string]: any;
+
   isAddMode:boolean;
   id:number;
+  roleId:number;
   userAddForm!: FormGroup;
 
   constructor(private fb:FormBuilder,
@@ -40,7 +42,7 @@ export class UserCreationComponent implements OnInit{
         nom:['',[Validators.required]],
         prenom:['',[Validators.required]],
         email:['',[Validators.required,Validators.email]],
-        password:['',[Validators.required,Validators.minLength(6)]],
+        password:['123456',[Validators.required,Validators.minLength(6)]],
         role:[[Validators.required]],
 
       })
@@ -74,9 +76,15 @@ export class UserCreationComponent implements OnInit{
       this.userservice.show(this.id).
       pipe(first())
       .subscribe({
-        next:(res:Response)=>{
+        next:(res)=>{
           const resUser=res["Utilisateur"] as User
+          const roles=resUser.roles as Role
+          this.userAddForm.patchValue({
+            role:roles[0].id
+          })
+          this.roleId=roles[0].id
           this.userAddForm.patchValue(resUser)
+
 
         },
         error:(err)=>{console.log(err)}
@@ -85,20 +93,49 @@ export class UserCreationComponent implements OnInit{
     //this.router.navigate([this.router.url])
   }
   onSubmit() {
-    this.userservice.create(this.userAddForm.value)
-    .subscribe({
-      next:(result)=>{
-        const res:userResponse=result as userResponse
-        if(res.sucess)
-          this.router.navigateByUrl('dashboard/user')
-        else
-        this.router.navigateByUrl('dashboard/user/add')
-      },
-      error:(e)=>{console.log(e)}
+    console.log(`form : ${this.userAddForm.valid}`)
+    this.authservice.logeduser.subscribe({
+      next:(res)=>{
+        this.userAddForm.patchValue({
+          createdBy:res.fullName,
+          lastmodifiedBy:res.fullName
+        })
+      }
     })
+    if(this.isAddMode){
+      this.userservice.create(this.userAddForm.value)
+      .subscribe({
+        next:(res)=>{
+          if(res['sucess']) this.router.navigateByUrl('dashboard/user')
+          else{
+            console.log(res['message'])
+            this.router.navigateByUrl('dashboard/user/add')
+          }
+        },
+        error:(err)=>{
+          console.log(err)
+          this.router.navigateByUrl('dashboard/user/add')
+        }
+      })
+    }
+    else{
+      this.userservice.update(this.id,this.userAddForm.value)
+      .subscribe({
+        next:(res)=>{
+          if(res['sucess']) this.router.navigateByUrl('dashboard/user')
+          else{
+            console.log(res['message'])
+            this.router.navigateByUrl('dashboard/user/add')
+          }
+        },
+        error:(err)=>{
+          console.log(err)
+          this.router.navigate(['dashboard/user/edit',this.id])
+        }
+      })
+    }
+
 
   }
-  getAllUsers() {
-    this.router.navigate(['/dashboard/user'])
-  }
+
 }

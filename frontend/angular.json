@@ -32,6 +32,12 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies":[
+              "tinymce",
+              "sweetalert2",
+              "moment"
+
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "css",
             "assets": [

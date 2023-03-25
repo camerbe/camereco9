@@ -36,7 +36,18 @@ import { RoleStartComponent } from './dashboard/role/role-start/role-start.compo
 import { PaysStartComponent } from './dashboard/pays/pays-start/pays-start.component';
 import { PaysCreationComponent } from './dashboard/pays/pays-creation/pays-creation.component';
 import { PaysComponent } from './dashboard/pays/pays.component';
-
+import { ArticleStartComponent } from './dashboard/article/article-start/article-start.component';
+import { ArticleCreationComponent } from './dashboard/article/article-creation/article-creation.component';
+import { ArticleComponent } from './dashboard/article/article.component';
+import { TagComponent } from './dashboard/tag/tag/tag.component';
+import { TagStartComponent } from './dashboard/tag/tag-start/tag-start.component';
+import { TagCreationComponent } from './dashboard/tag/tag-creation/tag-creation.component';
+import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
+import { SiteFooterComponent } from './_layout/site-footer/site-footer.component';
+import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
+import { HomeComponent } from './home/home.component';
+import { AdsenseModule } from 'ng2-adsense';
+import { FrontEndArticleComponent } from './front-end-article/front-end-article.component';
 
 
 @NgModule({
@@ -66,6 +77,18 @@ import { PaysComponent } from './dashboard/pays/pays.component';
     PaysStartComponent,
     PaysCreationComponent,
     PaysComponent,
+    ArticleStartComponent,
+    ArticleCreationComponent,
+    ArticleComponent,
+    TagComponent,
+    TagStartComponent,
+    TagCreationComponent,
+    SiteHeaderComponent,
+    SiteFooterComponent,
+    SiteLayoutComponent,
+    HomeComponent,
+    FrontEndArticleComponent,
+
 
 
   ],
@@ -76,7 +99,11 @@ import { PaysComponent } from './dashboard/pays/pays.component';
     HttpClientModule,
     CommonModule,
     EditorModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    AdsenseModule.forRoot({
+      adClient:'ca-pub-8638642715460968',
+
+    })
   ],
   providers: [
     UserService,

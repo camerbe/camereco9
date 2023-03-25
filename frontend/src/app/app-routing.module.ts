@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArticleCreationComponent } from './dashboard/article/article-creation/article-creation.component';
+import { ArticleStartComponent } from './dashboard/article/article-start/article-start.component';
+import { ArticleComponent } from './dashboard/article/article.component';
 import { CategorieCreationComponent } from './dashboard/categorie/categorie-creation/categorie-creation.component';
 import { CategorieStartComponent } from './dashboard/categorie/categorie-start/categorie-start.component';
 import { CategorieComponent } from './dashboard/categorie/categorie.component';
@@ -19,24 +22,55 @@ import { RoleComponent } from './dashboard/role/role.component';
 import { RubriqueCreationComponent } from './dashboard/rubrique/rubrique-creation/rubrique-creation.component';
 import { RubriqueStartComponent } from './dashboard/rubrique/rubrique-start/rubrique-start.component';
 import { RubriqueComponent } from './dashboard/rubrique/rubrique.component';
+import { TagCreationComponent } from './dashboard/tag/tag-creation/tag-creation.component';
+import { TagStartComponent } from './dashboard/tag/tag-start/tag-start.component';
+import { TagComponent } from './dashboard/tag/tag/tag.component';
 import { UserCreationComponent } from './dashboard/user/user-creation/user-creation.component';
 import { UserStartComponent } from './dashboard/user/user-start/user-start.component';
 import { UserComponent } from './dashboard/user/user.component';
+import { FrontEndArticleComponent } from './front-end-article/front-end-article.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './shared/services/auth.guard';
+import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 
 const routes: Routes = [
-  {
-    path:'',
-    title: 'login',
-    redirectTo:'/login',
-    pathMatch:'full'
-  },
   {
     path:'login',
     title: 'login',
     component:LoginComponent
   },
+  {
+
+    path:'',
+    component:SiteLayoutComponent,children:[
+      {
+        path:'',
+        redirectTo:'home',
+        title: 'liste',
+        pathMatch:'full'
+
+      },
+      {
+        path:'home',
+        title: 'Accueil - CamerEco - Cameroun - Economie - Cameroon',
+        component:HomeComponent
+      },
+      {
+        path:':slug',
+        component:FrontEndArticleComponent
+      },
+
+    ]
+  },
+
+  // {
+  //   path:'',
+  //   title: 'login',
+  //   redirectTo:'/login',
+  //   pathMatch:'full'
+  // },
+
   {
     path:'dashboard',
     component:DashboardComponent,children:[
@@ -202,7 +236,6 @@ const routes: Routes = [
             path:'',redirectTo:'role',
             title: 'liste des roles',
             pathMatch:'full'
-
           },
           {
             path:'role',
@@ -228,12 +261,46 @@ const routes: Routes = [
       },
       {
         path:'',
+        component:ArticleStartComponent,children:[
+          {
+            path:'',redirectTo:'article',
+            title: 'liste des articles',
+            pathMatch:'full'
+          },
+          {
+            path:'article',
+            title: 'liste des articles',
+            component:ArticleComponent
+          },
+          {
+            path:'article/add',
+            title: 'Ajout des articles',
+            component:ArticleCreationComponent
+          },
+          {
+            path:'article/:id',
+            title: 'Cherche  article',
+            component:ArticleComponent
+          },
+          {
+            path:'article/edit/:id',
+            title: 'Edition  article',
+            component:ArticleCreationComponent
+          },
+          {
+            path:'article/user/:id',
+            title: 'Recherche des articles par user',
+            component:ArticleComponent
+          }
+        ]
+      },
+      {
+        path:'',
         component:PaysStartComponent,children:[
           {
             path:'',redirectTo:'pays',
             title: 'liste des pays',
             pathMatch:'full'
-
           },
           {
             path:'pays',
@@ -254,6 +321,36 @@ const routes: Routes = [
             path:'pays/edit/:code',
             title: 'Edition  pays',
             component:PaysCreationComponent
+          }
+        ]
+      },
+      {
+        path:'',
+        component:TagStartComponent,children:[
+          {
+            path:'',redirectTo:'tag',
+            title: 'liste des tags',
+            pathMatch:'full'
+          },
+          {
+            path:'tag',
+            title: 'liste des tags',
+            component:TagComponent
+          },
+          {
+            path:'tag/add',
+            title: 'Ajout des tags',
+            component:TagCreationComponent
+          },
+          {
+            path:'tag/:id',
+            title: 'Cherche  tags',
+            component:TagComponent
+          },
+          {
+            path:'tag/edit/:id',
+            title: 'Edition  tag',
+            component:TagCreationComponent
           }
         ]
       },

@@ -14,6 +14,7 @@ import { UserService } from '../shared/services/user.service';
 export class DashboardComponent implements OnInit {
   currentUser!: LogedUser;
   isTokenValid:boolean;
+  isAdmin:boolean;
   @Input() users!:User[]
 
   constructor(
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
       this.route.navigate(['/login'])
     }
     this.getAllUser()
+    this.isAdmin=this.currentUser.role==='ADM'
   }
   getAllUser() {
     this.getCurrentUser()

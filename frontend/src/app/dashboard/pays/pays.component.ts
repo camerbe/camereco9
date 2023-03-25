@@ -27,9 +27,7 @@ export class PaysComponent implements OnInit{
     return this.paysService.getAll()
         .subscribe({
           next:(res)=>{
-            console.log(res['countries'])
              this.countries=res['countries']
-             console.log(this.countries)
              return this.countries
           },
           error:(err)=>console.log(err)
@@ -42,7 +40,7 @@ export class PaysComponent implements OnInit{
       this.router.navigate(['/login'])
     }
     this.getAll()
-    console.log(this.countries)
+
   }
 
   deletePays(code:string) {

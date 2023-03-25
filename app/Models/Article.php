@@ -23,6 +23,7 @@ class Article extends Model
         'article',
         'createdBy',
         'lastmodifiedBy',
+        'keyword',
 
     ];
     public function categorie()

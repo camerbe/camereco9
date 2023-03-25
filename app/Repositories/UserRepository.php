@@ -47,7 +47,7 @@
             return new UserResource($usr);
         }
         public function findAll(){
-            $usrs= User::orderBy('nom','asc')->orderBy('prenom','asc')->paginate();
+            $usrs= User::With(['roles'])->orderBy('nom','asc')->orderBy('prenom','asc')->paginate();
             return UserResource::collection($usrs);
 
          }

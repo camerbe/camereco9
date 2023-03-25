@@ -29,11 +29,20 @@ class TagController extends BaseController
     {
         //
         if(Auth::user()->can('viewAny',User::class)){
-            $tags = $this->tagRepository->findAll();
-            return $this->sendResponse($tags,"Liste des tags");
+            $tags= $this->tagRepository->findAll();
+            return response()->json([
+                "sucess"=>true,
+                "tags"=>$tags,
+                "message"=>"Liste des tags",
+
+            ],Response::HTTP_OK);
         }
         else{
-            return $this->sendError("Une erreur est survenue", ["Erreur"]);
+            return response()->json([
+                "sucess"=>false,
+                "message"=>"Pas autorisé",
+
+            ],Response::HTTP_OK);
         }
 
 
@@ -89,15 +98,15 @@ class TagController extends BaseController
             $tag = $this->tagRepository->findById($id);
             return response()->json([
                 "sucess"=>true,
-                'Tag' => $tag,
+                'tag' => $tag,
                 "message" => "Tag trouvé"
-            ], Response::HTTP_FOUND);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
                 "sucess"=>false,
-                "message" => "Pas autorisé"
-            ], Response::HTTP_UNAUTHORIZED);
+                "message" => "Pas trouvé"
+            ], Response::HTTP_OK);
         }
 
     }
@@ -128,13 +137,13 @@ class TagController extends BaseController
             return response()->json([
                 "sucess"=>true,
                 "message" => "Tag mis à jour"
-            ], Response::HTTP_ACCEPTED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
                 "sucess"=>false,
                 "message" => "Pas autorisé à mettre un tag à jour"
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_OK);
         }
 
     }
@@ -153,13 +162,13 @@ class TagController extends BaseController
             return response()->json([
                 "sucess"=>true,
                 "message" => "Tag supprimé"
-            ], Response::HTTP_ACCEPTED);
+            ], Response::HTTP_OK);
         }
         else{
             return response()->json([
                 "sucess"=>false,
                 "message" => "Pas autorisé à supprimer un tag"
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_OK);
         }
 
     }

@@ -21,7 +21,7 @@ class UserPolicy
         //
         $usr = User::find($user->id);
         $roles = $usr->roles()->first();
-        return $roles->shortrole == 'ADM';
+        return $roles->shortrole == 'ADM' || 'RED';
     }
 
     /**
@@ -36,7 +36,7 @@ class UserPolicy
         //
         $usr = User::find($user->id);
         $roles = $usr->roles()->first();
-        return $roles->shortrole == 'ADM';
+        return $roles->shortrole == 'ADM' || 'RED';
     }
 
     /**

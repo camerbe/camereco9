@@ -1,0 +1,217 @@
+<!-- Contact Form -->
+<div class="mx-4">
+
+  <div class="grid grid-cols-1 md:grid-cols-1 w-12/12 mx-auto">
+    <form [formGroup]="articleAddForm" (ngSubmit)="onSubmit()" class="p-6 flex flex-col justify-center">
+      <div class="grid grid-cols-1 md:grid-cols-3 w-12/12 mx-auto gap-4">
+        <div class="flex flex-col">
+          <label for="auteur" class="hidden">Auteur</label>
+          <input
+              type="text"
+              name="auteur"
+              id="auteur"
+              placeholder="Auteur"
+              formControlName="auteur"
+              class=" {{ auteur.invalid && (auteur.touched || auteur.dirty)? 'border-2 border-rose-600':'' }} w-30 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+              />
+                <div *ngIf="(auteur.errors?.['required']) && (auteur.invalid) && (auteur.touched || auteur.dirty)" class="my-1 px-1 py-1 text-red-600">
+                  <span>* L'auteur est requis </span>
+                </div>
+        </div>
+        <div class="flex flex-col">
+          <label for="source" class="hidden">Source</label>
+          <input
+              type="text"
+              name="source"
+              id="source"
+              placeholder="Source"
+              formControlName="source"
+              class="{{ auteur.invalid && (auteur.touched || auteur.dirty)? 'border-2 border-rose-600':'' }} w-30 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+              />
+              <div *ngIf="(source?.invalid) && (source.errors?.['required']) && (source?.touched || source?.dirty)" class="my-1 px-1 py-1 text-red-600">
+                <span>* La source est requise </span>
+              </div>
+        </div>
+        <div class="flex flex-col">
+          <label for="dateparution" class="hidden">Date Parution</label>
+
+          <input
+              type="datetime-local"
+              name="dateparution"
+              id="dateparution"
+              placeholder="Date Parution"
+              formControlName="dateparution"
+              step=1
+
+              class="{{ dateparution.invalid && (dateparution.touched || dateparution.dirty)? 'border-2 border-rose-600':'' }} w-30 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+              />
+
+              <div *ngIf="(dateparution.errors?.['required']) || (dateparution?.invalid) && (dateparution?.touched || dateparution.dirty)" class="my-1 px-1 py-1 text-red-600">
+                <span>* La date de parution est requise </span>
+              </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 w-12/12 mx-auto gap-4">
+        <div class="flex flex-col mt-2">
+          <label for="categorie_id" class="">Catégorie</label>
+          <select
+                name="categorie_id"
+                (change)="onChange($event)"
+                class="{{ (selectedCategorieId===0) ||categorie_id.invalid && (categorie_id.touched || categorie_id.dirty)? 'border-2 border-rose-600':'' }} w-12/12 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+                id="categorie_id"
+                formControlName="categorie_id">
+                <option value="0" selected>Votre Choix</option>
+                <option *ngFor="let categorie of categories" value="{{categorie.id }}">{{ categorie.categorie }}</option>
+            </select>
+            <div *ngIf="selectedCategorieId===0 || (categorie_id.errors?.['required']) && (categorie_id?.touched || categorie_id.dirty)" class="my-1 px-1 py-1 text-red-600">
+              <span>* La catégorie est requise </span>
+            </div>
+        </div>
+        <div class="flex flex-col mt-2">
+          <label for="pays_code" class="">Pays</label>
+          <select
+                name="pays_code"
+                (change)="onChangeCountry($event)"
+                class="{{ pays_code.invalid && (pays_code.touched || pays_code.dirty)? 'border-2 border-rose-600':'' }} w-12/12 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+                id="pays_code"
+                formControlName="pays_code">
+                <option value="0" selected="true">Votre Choix</option>
+                <option *ngFor="let country of countries" value="{{country.code }}">{{ country.pays }}</option>
+            </select>
+            <div *ngIf="selectedPaysCode=='0' || (pays_code.errors?.['required'])  && (pays_code?.touched || pays_code.dirty)" class="my-1 px-1 py-1 text-red-600">
+              <span>* Le pays est requis </span>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="flex flex-col">
+        <label for="titre" class="hidden">titre</label>
+        <input
+          type="text"
+          name="titre"
+          id="titre"
+          placeholder="Titre"
+          formControlName="titre"
+
+          class="{{ titre.invalid && (titre.touched || titre.dirty)? 'border-2 border-rose-600':'' }} w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+          />
+          <div *ngIf="(titre.errors?.['required']) && titre?.invalid && (titre?.touched || titre?.dirty)" class="my-1 px-1 py-1 text-red-600">
+            <span>* Le titre est requis </span>
+          </div>
+          <div *ngIf="titre.errors?.['maxlength'] " class="my-1 px-1 py-1 text-red-600">
+            <span>* Ce titre est trop long </span>
+          </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="createdBy" class="hidden">createdBy</label>
+        <input
+          type="hidden"
+          name="createdBy"
+          id="createdBy"
+          placeholder="createdBy"
+          formControlName="createdBy"
+          class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+      </div>
+      <div class="flex flex-col">
+        <label for="lien" class="hidden">lastmodifiedBy</label>
+        <input
+          type="hidden"
+          name="lastmodifiedBy"
+          id="lastmodifiedBy"
+          placeholder="lastmodifiedBy"
+          formControlName="lastmodifiedBy"
+          class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 w-12/12 mx-auto gap-4">
+        <!-- <fieldset>
+          <legend>Mots clefs</legend> -->
+          <div class="flex flex-col">
+            <label for="motclefOne" class="hidden"></label>
+            <input
+                type="text"
+                name="motclefOne"
+                id="motclef1"
+                placeholder="Mot clef"
+                formControlName="motclefOne"
+                class="{{ motclefOne.invalid && (motclefOne.touched || motclefOne.dirty)? 'border-2 border-rose-600':'' }} w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+                />
+                <div *ngIf="(motclefOne.errors?.['required']) && motclefOne?.invalid && (motclefOne?.touched || motclefOne?.dirty)" class="my-1 px-1 py-1 text-red-600">
+                  <span>* Ce mot clef est requis </span>
+                </div>
+                <div *ngIf="motclefOne.errors?.['minlength']" class="my-1 px-1 py-1 text-red-600">
+                  <span>* Ce mot clef doit avoir 3 caractères au minimum  </span>
+                </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="motclefTwo" class="hidden"></label>
+            <input
+                type="text"
+                name="motclefTwo"
+                id="motclefTwo"
+                placeholder="Mot clef"
+                formControlName="motclefTwo"
+                class="{{ motclefTwo.invalid && (motclefTwo.touched || motclefTwo.dirty)? 'border-2 border-rose-600':'' }} w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+                />
+                <div *ngIf=" ( motclefTwo.errors?.['required'])&& motclefTwo?.invalid && (motclefTwo?.touched || motclefTwo?.dirty)" class="my-1 px-1 py-1 text-red-600">
+                  <span>* Ce mot clef est requis </span>
+                </div>
+                <div *ngIf="motclefTwo.errors?.['minlength']" class="my-1 px-1 py-1 text-red-600">
+                  <span>* Ce mot clef doit avoir 3 caractères au minimum  </span>
+                </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="motclefThree" class="hidden"></label>
+            <input
+                type="text"
+                name="motclefThree"
+                id="motclefThree"
+                placeholder="Mot clef"
+                formControlName="motclefThree"
+                class="{{ motclefThree.invalid && (motclefThree.touched || motclefThree.dirty)? 'border-2 border-rose-600':'' }} w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none"
+                />
+                <div *ngIf=" (motclefThree.errors?.['required']) && motclefThree?.invalid && (motclefThree?.touched || motclefThree?.dirty)" class="my-1 px-1 py-1 text-red-600">
+                  <span>* Ce mot clef est requis </span>
+                </div>
+                <div *ngIf="motclefThree.errors?.['minlength']" class="my-1 px-1 py-1 text-red-600">
+                  <span>* Ce mot clef doit avoir 3 caractères au minimum </span>
+                </div>
+          </div>
+        <!-- </fieldset> -->
+      </div>
+      <div class="flex flex-col mt-2">
+        <label for="article" class="">Article</label>
+        <editor
+
+          formControlName="article"
+          class="{{ article.invalid && (article.touched || article.dirty)? 'border-2 border-rose-600':'' }}"
+          [init]="init"
+      ></editor>
+        <div *ngIf="(article.errors?.['required']) && article?.invalid && (article?.touched || article.dirty)" class="my-1 px-1 py-1 text-red-600">
+          <span>* L'article est requis </span>
+        </div>
+      </div>
+      <div class="flex flex-col mt-2">
+        <label for="photo" class="">Image</label>
+        <editor
+
+          formControlName="photo"
+          class="{{ photo.invalid && (photo.touched || photo.dirty)? 'border-2 border-rose-600':'' }}"
+          [init]="init_image"
+      ></editor>
+        <div *ngIf="(photo.errors?.['required']) && photo?.invalid && (photo?.touched || photo.dirty)" class="my-1 px-1 py-1 text-red-600">
+          <span>* L'image est requise </span>
+        </div>
+      </div>
+
+
+      <button *ngIf="isAddMode" type="submit" [disabled]="articleAddForm.status=='INVALID'" class="md:w-32 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Submit</button>
+      <button *ngIf="!isAddMode" type="submit" [disabled]="articleAddForm.status=='INVALID'" class="md:w-48 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Mettre à jour</button>
+    </form>
+  </div>
+</div>
+<!-- ./Contact Form -->
+

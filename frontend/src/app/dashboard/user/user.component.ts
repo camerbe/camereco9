@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   isTokenValid:boolean;
   users!:User[];
   id!: number;
+
   constructor(
     private userservice:UserService,
     private route:ActivatedRoute,
@@ -26,11 +27,7 @@ export class UserComponent implements OnInit {
 
   getAll(){
     return this.userservice.getAll().subscribe({
-      next:(usrs)=>{
-        const [sucess,users]=Object.values(usrs)
-        this.users=users
-        return this.users
-      },
+      next:(usrs)=>this.users=usrs['users'],
       error:(e)=>{
         console.log(e)
       }

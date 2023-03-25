@@ -70,6 +70,7 @@ export class CategorieCreationComponent implements OnInit{
       this.categorieService.show(this.id)
       .pipe(first())
       .subscribe({
+
         next:(res)=>this.categorieAddForm.patchValue(res['categorie']),
         error:(err)=>console.log(err)
       })

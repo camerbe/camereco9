@@ -5,6 +5,7 @@ import { first } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { RubriqueService } from 'src/app/shared/services/rubrique.service';
 
+
 @Component({
   selector: 'app-rubrique-creation',
   templateUrl: './rubrique-creation.component.html',

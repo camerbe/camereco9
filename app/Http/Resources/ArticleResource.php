@@ -13,6 +13,7 @@ use App\Http\Resources\ArticleCollection;
 
 class ArticleResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -44,12 +45,14 @@ class ArticleResource extends JsonResource
             'rubrique'=>$rub,
             'categorie'=>$rubriques->categorie,
             'photo'=>$this->photo,
-            'dateparution  '=>$this->dateparution,
-            'article  '=>$this->article,
+            'dateparution'=>$this->dateparution,
+            'article'=>$this->article,
             'createdBy'=>$this->createdBy,
             'lastmodifiedBy'=>$this->lastmodifiedBy,
-            'tags'=>  TagResource::collection($tags),
+            'keyword'=>$this->keyword,
+            'updated_at'=>$this->updated_at,
 
         ];
     }
+
 }

@@ -44,8 +44,38 @@ class ArticleController extends BaseController
 
     }
     public function articlebyuser($userid){
-        $articles = $this->articlerepository->getArticleByUserId($userid);
-        return $articles ? $this->sendResponse($articles, "Liste des articles") : $this->sendError("Erreur", ["Pas d'articles"]);
+
+        if(Auth::user()->can('viewAny',Article::class)){
+            $usr = $this->articlerepository->getArticleByUserId($userid);
+            return response()->json([
+                "sucess" => true,
+                "articles" => $usr,
+                "message" => "Liste des articles"
+            ], Response::HTTP_OK);
+        }
+        else{
+            return response()->json([
+                "sucess" => false,
+                "message" => "Pas d'article"
+            ], Response::HTTP_OK);
+        }
+
+
+    }
+    public function articlebyslug($lug){
+        $article = $this->articlerepository->getArticleBySlug($lug);
+        if($article){
+            return response()->json([
+                "sucess" => true,
+                "articles" => $article,
+                "message" => "Article trouvé"
+            ], Response::HTTP_OK);
+        }
+        return response()->json([
+            "sucess" => false,
+            "message" => "Article pas trouvé"
+        ], Response::HTTP_OK);
+
     }
     /**
      * Show the form for creating a new resource.
@@ -67,21 +97,21 @@ class ArticleController extends BaseController
      */
     public function store(ArticleRequest $request)
     {
-        //
-        //dd(Auth::user());
         if(Auth::user()->can('create',Article::class)){
-            $article = $this->articlerepository->create($request->all());
-            return $article ? $this->sendResponse($article, "Article ajouté") : $this->sendError("Echec de l'ajout d'un article", ["Erreur"]);
+            $usr = $this->articlerepository->create($request->all());
+            return response()->json([
+                "sucess" => true,
+                "article" => $usr,
+                "message" => "Article ajouté"
+            ], Response::HTTP_OK);
         }
         else{
-            return $this->sendError("vous n'êtes pas autorisé à ajouter les articles", ["Echec"]);
+            return response()->json([
+                "sucess" => false,
+                "message" => "Pas autorisé"
+            ], Response::HTTP_OK);
         }
 
-
-        // return response()->json([
-        //     "article"=>$article,
-        //     "message"=>"Article ajouté"
-        // ],Response::HTTP_CREATED);
     }
 
     /**
@@ -93,11 +123,23 @@ class ArticleController extends BaseController
     public function show($id)
     {
         //
-        $article = Article::find($id);
-        ++$article->hit;
-        $article->save();
-        $article = $this->articlerepository->findById($id);
-        return $article ? $this->sendResponse($article, "Article trouvé") : $this->sendError("Erreur", ["Article pas trouvé"]);
+
+        if(Auth::user()->can('view',User::class,Article::class)){
+            $article= $this->articlerepository->findById($id);
+            return response()->json([
+                'sucess'=>true,
+                'article' => $article,
+                "message" => "Article trouvé"
+            ], Response::HTTP_OK);
+        }
+        else{
+            return response()->json([
+                'sucess'=>false,
+                "message" => "Echec de la recherche"
+            ], Response::HTTP_OK);
+        }
+
+
     }
 
     /**
@@ -109,7 +151,20 @@ class ArticleController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        return $this->sendResponse($this->articlerepository->update($request->all(), $id), "Article mis à jour");
+        if(Auth::user()->can('update',User::class,Article::class)){
+            $this->articlerepository->update($request->all(),$id);
+            return response()->json([
+                "sucess" => true,
+                "message" => "Article mis à jour"
+            ], Response::HTTP_OK);
+        }
+        else{
+            return response()->json([
+                "sucess" => false,
+                "message" => "Echec de la mise à jour"
+            ], Response::HTTP_OK);
+        }
+
 
     }
 

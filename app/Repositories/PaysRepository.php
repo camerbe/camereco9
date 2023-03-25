@@ -18,6 +18,8 @@
             return parent::delete($id);
         }
         public function create(Array $input){
+
+
             $input['pays']=strtoupper($input['pays']) ;
             $input['country']=strtoupper($input['country']) ;
             $input['code']=strtoupper($input['code']);

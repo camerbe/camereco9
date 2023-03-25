@@ -12,9 +12,6 @@ class AuthController extends Controller
     public function login(Request $request){
         if(Auth::attempt(['email' => $request->email,'password'=>$request->password])){
             $user = Auth::user();
-            // $sucess['token'] = $user->createToken($user)->accessToken;
-            // $sucess['name'] = $user->nom.' '.$user->prenom;
-            // $sucess['id'] = $user->id;
             $role=$user->roles()->first();
             // $sucess['role'] = $role->shortrole;
             return response()->json([
@@ -22,7 +19,7 @@ class AuthController extends Controller
                 'token' => $user->createToken($user)->accessToken,
                 'fullName'=> $user->nom.' '.$user->prenom,
                 'role'=> $role->shortrole,
-                'id'=> $role->id,
+                'id'=> $user->id,
                 'message' => "Utilisateur connecté avec succès",
             ], Response::HTTP_OK);
 

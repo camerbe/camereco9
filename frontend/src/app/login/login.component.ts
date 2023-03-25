@@ -43,7 +43,12 @@ export class LoginComponent implements OnInit{
           email:'',
           password:''
         })
-        res? this.router.navigate(['/dashboard/user']): this.router.navigateByUrl('login')
+        if(res){
+         this.router.navigate(['/dashboard/article/user',+this.authservice.getToken().id])
+        }
+        else{
+          this.router.navigateByUrl('login')
+        }
       },
       error:(e)=>{
         console.log(e)
