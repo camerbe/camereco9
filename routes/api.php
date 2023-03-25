@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 Route::get('front', [FrontController::class, 'index']);
 Route::get('front/{slug}', [FrontController::class, 'show']);
-Route::get('front/{pays}/categorie', [FrontController::class, 'samerubrique']);
+Route::get('front/{pays}/{categorie}', [FrontController::class, 'samerubrique']);
 //Route::get('frontend/{slug}', [FrontEndController::class, 'findBySlug']);
 Route::post('login', [AuthController::class, 'login']);
 

@@ -13,7 +13,11 @@ export class FrontEndDataService {
     .pipe(map((res)=>res));
   }
   getArticleBySlug(slug:string){
-    return this.http.get(this.url+'/'+slug)
+    return this.http.get(this.url+`/${slug}`)
+    .pipe(map((res)=>res));
+  }
+  getSameRubrique(pays:string,categorie_id:number){
+    return this.http.get(this.url+`/${pays}/${categorie_id}`)
     .pipe(map((res)=>res));
   }
 }
