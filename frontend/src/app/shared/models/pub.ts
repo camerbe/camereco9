@@ -1,5 +1,4 @@
 export interface Pub {
-  [x: string]: any;
   id:BigInt;
   datefinpub:Date;
   lien:string;
@@ -8,5 +7,6 @@ export interface Pub {
   pub_dimension_id :bigint;
   createdBy:string;
   lastmodifiedBy:string;
+
 
 }

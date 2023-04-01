@@ -1,7 +1,9 @@
 <?php
     namespace App\Repositories;
 
+    use App\Http\Resources\PubResource;
     use App\Models\Pub;
+    use Carbon\Carbon;
 
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
@@ -31,5 +33,12 @@
         public function findAll(){
             return Pub::Where('datefinpub','>',now())->orderBy('datefinpub','desc')->paginate();
 
+         }
+
+        public function getPub($dimension){
+            return PubResource::collection(Pub::where([
+                ['datefinpub', '>', Carbon::now()],
+                ['pubs.pub_dimension_id', $dimension]
+            ])->orderByDesc('datefinpub')->get());
          }
     }

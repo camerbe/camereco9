@@ -1,37 +1,49 @@
-<div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12" *ngIf="firstArticle">
-  <a routerLink="/{{ firstArticle.slug }}"  href="#" class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-900">
-    <img src="{{ extractSrc(firstArticle.photo) }}" alt="{{ firstArticle.pays }}::{{firstArticle.titre  }}" title="{{ firstArticle.pays }}::{{firstArticle.titre  }}" class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500">
-    <div class="p-6 space-y-2 lg:col-span-5">
-      <h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{ firstArticle.titre }}</h3>
-      <span class="text-xs dark:text-gray-400">{{ firstArticle.dateparution | date:'d MMMM y H:mm:ss' }}</span>
-      <p>{{ firstArticle.chapeau }}</p>
-    </div>
-  </a>
-  <div class="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    <a  routerLink="/{{ article.slug }}"  *ngFor=" let article of articles;index as i"   rel="noopener noreferrer" href="#" class="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900  shadow-lg relative">
-      <img alt="{{ article.pays }}::{{article.titre  }}" title="{{ article.pays }}::{{article.titre  }}" role="presentation" class="object-cover w-full rounded h-44 dark:bg-gray-500" src="{{ extractSrc(article.photo) }}">
-      <span class="flag-icon flag-icon-{{article.pays_code.toLocaleLowerCase()}} flag-icon-squared rounded  absolute top-2 left-2 "></span>
-      <div class="p-6 space-y-2 container">
-        <h3 class="text-2xl font-semibold group-hover:underline group-focus:underline">{{ article.titre }}</h3>
-        <div class="space-x-1 text-red-800 flex border-dashed border-t py-2">
-          <div class="">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 rounded">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
-            </svg>
-          </div>
-          <div class="">
-            <span class="text-xs p-2">
-              {{article.dateparution|date:'d MMMM y H:mm:ss'}}
-            </span>
-          </div>
+  <section class="bg-gray-100 text-gray-800">
+    <div  class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
+      <a  routerLink="/{{articles[0].slug }}" rel="noopener noreferrer"  class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 bg-gray-50">
+        <img src="{{ extractSrc(articles[0].photo) }}" alt="{{ articles[0].pays }}::{{articles[0].titre  }}" title="{{ articles[0].pays }}::{{articles[0].titre  }}" class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500">
+        <div class="p-6 space-y-2 lg:col-span-5">
+          <h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{ articles[0].titre }}</h3>
+          <span class="text-xs text-rose-600">{{articles[0].dateparution|date:'d MMMM y H:mm:ss'}}</span>
+          <p class="text-justify">{{ articles[0].chapeau }}</p>
         </div>
+      </a>
+      <div class="grid grid-cols-3 gap-4">
+        <div  class="col-span-2 grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          <a routerLink="/{{article.slug }}"  *ngFor=" let article of articles|slice:1;index as i"  class="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 shadow-xl">
+            <img role="presentation" class="object-cover w-full rounded h-44 bg-gray-500" src="{{ extractSrc(article.photo) }}">
+            <div class="p-6 space-y-2">
+              <h3 class="text-2xl font-semibold group-hover:underline group-focus:underline">{{ article.titre }}</h3>
+              <span class="text-xs text-rose-600 text-capitalize">{{article.dateparution|date:'d MMMM y H:mm:ss'}}</span>
+              <p class="text-justify">{{ article.chapeau }}</p>
+            </div>
+          </a>
 
-        <p>{{ article.chapeau }}</p>
-
+        </div>
+        <div>
+          <app-plus-lu></app-plus-lu>
+        </div>
       </div>
 
-    </a>
+    </div>
+    <!-- Pagination -->
+    <div   class="flex justify-center space-x-1 dark:text-gray-100">
+      <div *ngFor="let meta of metas['links'];index as i">
+        <button  *ngIf="meta.prev!=null && i==1"  title="previous" type="button" class="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow-md dark:bg-gray-900 dark:border-gray-800">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-4">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <a routerLink="/home"  [queryParams]="{page:+meta.label}"   *ngIf="i>0 && i<metas['links'].length-1" type="button" class="inline-flex items-center justify-center w-8 h-8 text-sm border rounded shadow-md dark:bg-gray-900 dark:border-gray-800" title="Page">{{ meta.label }}</a>
+        <button *ngIf="meta.next==null && +meta.label==i+1"  title="next" type="button" class="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow-md dark:bg-gray-900 dark:border-gray-800">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-4">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
 
-  </div>
 
-</div>
+
+

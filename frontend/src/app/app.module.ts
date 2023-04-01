@@ -48,6 +48,8 @@ import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component
 import { HomeComponent } from './home/home.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { FrontEndArticleComponent } from './front-end-article/front-end-article.component';
+import { AdvertComponent } from './shared/components/advert/advert.component';
+import { PlusLuComponent } from './shared/components/plus-lu/plus-lu.component';
 
 
 @NgModule({
@@ -88,8 +90,8 @@ import { FrontEndArticleComponent } from './front-end-article/front-end-article.
     SiteLayoutComponent,
     HomeComponent,
     FrontEndArticleComponent,
-
-
+    AdvertComponent,
+    PlusLuComponent
 
   ],
   imports: [

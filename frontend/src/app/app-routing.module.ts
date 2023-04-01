@@ -57,6 +57,11 @@ const routes: Routes = [
         component:HomeComponent
       },
       {
+        path:'home/:page',
+        title: 'Accueil - CamerEco - Cameroun - Economie - Cameroon',
+        component:HomeComponent
+      },
+      {
         path:':slug',
         component:FrontEndArticleComponent
       },

@@ -1,12 +1,14 @@
 <?php
     namespace App\Repositories;
 
-use App\Http\Resources\ArticleCollection;
-use App\Models\Article;
+    use App\Http\Resources\ArticleCollection;
+    use App\Models\Article;
     use App\Models\Pays;
     use App\Models\User;
+    use App\Models\Pub;
     use Illuminate\Support\Str;
     use App\Repositories\BaseRepository;
+    use App\Repositories\PubRepository;
     use Illuminate\Support\Arr;
     use Carbon\Carbon;
     use Html2Text\Html2Text;
@@ -14,9 +16,11 @@ use App\Models\Article;
 
     class ArticleRepository extends BaseRepository  {
 
+        protected $pubRepository;
         public function __construct(Article $article)
         {
             $this->model = $article;
+
         }
         public function findById($id)
         {
@@ -92,12 +96,12 @@ use App\Models\Article;
 
         }
         public function findAll(){
-            $articles=  Article::orderBy('dateparution','desc')->paginate();
-            return ArticleResource::collection($articles);
+            $articles=  Article::orderBy('dateparution','desc')->take(70)->paginate(7);
+            return ArticleResource::collection($articles)->response()->getData(true);;
 
         }
         public function getArticleByUserId($userid){
-            $articles=  Article::where("user_id",$userid)->orderByDesc('dateparution')->paginate(10);
+            $articles=  Article::where("user_id",$userid)->orderByDesc('dateparution')->paginate(5);
             return ArticleResource::collection($articles)->response()->getData(true);
         }
         public function getArticleBySlug($slug){
@@ -120,5 +124,14 @@ use App\Models\Article;
                 ['dateparution', '<=', Carbon::now()],
             ])->orderByDesc('hit')->take(5)->get());
          }
+
+         public function findAllAndPaginate($page=1){
+            $articles=  Article::orderBy('dateparution','desc')->take(70)->paginate(7,['*'], 'page', $page);
+            return ArticleResource::collection($articles)->response()->getData(true);;
+
+        }
+        //  public function getPubBanner($idbanner){
+        //     return $this->pubRepository->getPub($idbanner);
+        //  }
 
     }

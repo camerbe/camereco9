@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { Article } from '../shared/models/article.model';
 import { FrontEndArticleService } from '../shared/services/front-end-article.service';
 
@@ -16,15 +17,17 @@ export class FrontEndArticleComponent implements OnInit {
   slug:string;
   articles:Article[]=[];
   articlesamerubriques:Article[]=[];
-  code_pays:string;
-  categorie_id:number;
+
+
   categorie:string;
+  samerubriqueparam:{categorie_id:number,code_pays:string;}
   /**
    *
    */
   constructor(
     private frontEndService:FrontEndArticleService,
     private route:ActivatedRoute,
+    private router:Router,
     private metaService:Meta,
     private titleService:Title
   ) {
@@ -36,8 +39,6 @@ export class FrontEndArticleComponent implements OnInit {
         next:(res)=>{
           this.articles= res['article']
           this.titleService.setTitle(this.articles[0].pays+' :: '+this.articles[0].titre)
-          this.categorie_id=+this.articles[0].categorie_id
-          this.code_pays=this.articles[0].pays_code
           this.categorie=this.articles[0].categorie
           this.metaService.addTags([
             { name: 'description', content: this.articles[0].chapeau},
@@ -58,26 +59,37 @@ export class FrontEndArticleComponent implements OnInit {
             { property: 'article:section', content:  this.articles[0].categorie},
 
           ],true)
+          return this.articles
         }
 
       })
   }
+  getSameRubrique(slug:string){
+    let art
+    let chain =this.frontEndService.getArticleBySlug(slug)
+    .pipe(switchMap((res)=>{
+      art=res['article']
+      return art
+
+    }))
+    let artsamerubrique=chain.pipe(switchMap(result=>{
+      return this.frontEndService.getSameRubrique(art[0].pays_code,+art[0].categorie_id)
+
+    }))
+    return artsamerubrique.subscribe(res=>this.articlesamerubriques=res['articles'])
+
+  }
   ngOnInit(): void {
     this.slug=this.route.snapshot.params['slug'];
-    //console.log(`slug ${this.slug}`)
     this.getArticle(this.slug)
-    console.log(`pays_code ${this.code_pays}`)
-    console.log(`categorie_id ${this.categorie_id}`)
-    this.getSameRubrique(this.code_pays,this.categorie_id)
-    //if (this.article)
-     console.log(`article ${this.articlesamerubriques}`)
+    this.getSameRubrique(this.slug)
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
   extractSrc(img){
     return this.frontEndService.extractImage(img)
   }
-  getSameRubrique(pays,id_categorie){
-    return this.frontEndService.getSameRubrique(pays,id_categorie)
-      .subscribe((res)=>this.articlesamerubriques=res['article'])
-  }
+
 
 }
+
+

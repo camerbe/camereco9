@@ -43,6 +43,7 @@ class ArticleController extends BaseController
 
 
     }
+
     public function articlebyuser($userid){
 
         if(Auth::user()->can('viewAny',Article::class)){

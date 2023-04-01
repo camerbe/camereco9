@@ -1,0 +1,18 @@
+<div class="hidden py-2 xl:col-span-3 lg:col-span-4 md:hidden lg:block">
+  <div class="mb-2 space-x-5 ">
+    <button type="button" class="pb-2 text-xs font-bold uppercase border-b-2 border-rose-600">les plus lus</button>
+  </div>
+  <div class="flex flex-col divide-y divide-gray-300">
+    <div *ngFor="let article of mostreadeds"  class="flex px-1 py-4">
+      <img alt="{{ article.pays }} :: {{ article.titre }}"  title="{{ article.pays }} :: {{ article.titre }}" class="rounded flex-shrink-0 object-cover w-20 h-20 mr-4 dark:bg-gray-500" src="{{ extractSrc(article.photo) }}">
+      <div class="flex flex-col divide-y divide-slate-200">
+        <div class="flex flex-col flex-grow">
+          <a routerLink="/{{ article.slug }}" title="{{ article.pays }} :: {{ article.titre }}"  class="font-serif hover:underline">{{ article.titre }}</a>
+          <p class="mt-auto text-xs text-gray-400">{{ article.rubrique }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
