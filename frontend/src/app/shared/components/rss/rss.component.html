@@ -1,0 +1,24 @@
+
+	<div class="bg-gray-300 rounded">
+
+			<div *ngFor="let rss of rssList" class="flex px-1 py-4">
+
+        <div class="flex flex-col divide-y divide-gray-100">
+          <div class="flex px-1 py-4">
+            <img alt="{{ rss.title }}"  title="{{ rss.title  }}" class="rounded-full flex-shrink-0 object-cover w-20 h-20 mr-4 dark:bg-gray-500" src="{{rss.image}}">
+            <div class="flex flex-col divide-y divide-slate-200">
+              <div class="flex flex-col flex-grow">
+                <a href="{{ rss.slug }}" title="{{rss.title }}" target="_blank" class="font-serif hover:underline text-gray-600 text-justify">{{ rss.title}}</a>
+                <p class="mt-auto text-xs text-gray-400">{{ rss.categorie }}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+	</div>
+
+
+

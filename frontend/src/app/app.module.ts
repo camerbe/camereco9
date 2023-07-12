@@ -50,6 +50,7 @@ import { AdsenseModule } from 'ng2-adsense';
 import { FrontEndArticleComponent } from './front-end-article/front-end-article.component';
 import { AdvertComponent } from './shared/components/advert/advert.component';
 import { PlusLuComponent } from './shared/components/plus-lu/plus-lu.component';
+import { RssComponent } from './shared/components/rss/rss.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { PlusLuComponent } from './shared/components/plus-lu/plus-lu.component';
     HomeComponent,
     FrontEndArticleComponent,
     AdvertComponent,
-    PlusLuComponent
+    PlusLuComponent,
+    RssComponent
 
   ],
   imports: [

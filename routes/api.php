@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::get('front', [FrontController::class, 'index']);
 Route::get('front/page/{page}', [FrontController::class, 'findandpaginate']);
 Route::get('front/{slug}', [FrontController::class, 'show']);
+Route::get('front/flux/rss', [FrontController::class, 'rss']);
 
 Route::get('front/pub/{dimension}', [FrontController::class, 'getadvert']);
 Route::get('front/{pays}/{categorie}', [FrontController::class, 'samerubrique']);

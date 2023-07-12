@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit{
   articles:Article[]=[];
   firstArticle:Article;
   metas:Article[]=[];
+  links:Article[]=[];
   page:number;
 
   /**
@@ -50,7 +51,6 @@ export class HomeComponent implements OnInit{
       this.route.queryParamMap
     ]).pipe(switchMap(params=>{
       let param=+params[0].get('page')
-      console.log(`page ${param}`)
       return this.frontEndArticleService.getAllAndPaginate(param)
     }))
   }
@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit{
     return this.getCombine().subscribe({
       next:res=>{
         this.articles=res['articles']['data']
-        console.log(`this.articles ${this.articles}`)
         return this.articles
       }
     })
@@ -68,7 +67,11 @@ export class HomeComponent implements OnInit{
       next:res=>this.metas=res['articles']['meta']
     })
   }
-
+  getArticleLinks(){
+    return this.getCombine().subscribe({
+      next:res=>this.links=res['articles']['links']
+    })
+  }
 
   getCombineMeta(){
     return combineLatest([
@@ -79,29 +82,23 @@ export class HomeComponent implements OnInit{
     })).subscribe(res=>this.articles=res['articles']['meta'])
 
   }
-  getCombineAll(){
-    let art
-    return combineLatest([
-      this.route.queryParamMap
-    ]).pipe(switchMap(parammap=>{
-      let param=+parammap[0].get('page')|1
-      return this.frontEndArticleService.getAllAndPaginate(param)
-    })).pipe(switchMap(arts=>{
-      let art=arguments
-      this.articles=arts['articles']['data']
-      return this.articles
-    })).pipe(switchMap(meta=>{
-      this.metas=art['articles']['meta']
-      return this.metas
-    }))
-  }
+  // getCombineAll(){
+  //   let art
+  //   return combineLatest([
+  //     this.route.queryParamMap
+  //   ]).pipe(switchMap(parammap=>{
+  //     let param=+parammap[0].get('page')|1
+  //     return this.frontEndArticleService.getAllAndPaginate(param)
+  //   })).pipe(switchMap(arts=>{
+  //     let art=arguments
+  //     this.articles=arts['articles']['data']
+  //     return this.articles
+  //   })).pipe(switchMap(meta=>{
+  //     this.metas=art['articles']['meta']
+  //     return this.metas
+  //   }))
+  // }
   ngOnInit(): void {
-
-    // this.getAll()
-    // this.getMeta()
-    //this.getCombine();
-    //this.getCombineMeta();
-    //this.getCombineAll()
     this.getArticles()
     this.getArticleMetas()
 

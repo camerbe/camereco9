@@ -1,163 +1,50 @@
-<!-- <header class="p-4 bg-gradient-to-tr from-indigo-600 to-purple-600 text-gray-100 ">
-	<div class="container flex justify-between h-16 mx-auto">
-		<ul class="items-stretch hidden space-x-3 lg:flex">
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-0 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Link</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-0 border-b-2 dark:border-transparent">Link</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-0 border-b-2 dark:border-transparent">Link</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-0 border-b-2 dark:border-transparent">Link</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-0 border-b-2 dark:border-transparent">Link</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-0 border-b-2 dark:border-transparent">Link</a>
-			</li>
-		</ul>
-		<a rel="noopener noreferrer" href="#" aria-label="Back to homepage" class="flex items-center p-2">
-			<img class="mx-auto w-28" src="assets/images/camereco6.png" alt="logo" />
-		</a>
-		<div class="flex items-center md:space-x-4">
-			<div class="relative">
-				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
-					<button type="submit" title="Search" class="p-1 focus:outline-none focus:ring">
-						<svg fill="currentColor" viewBox="0 0 512 512" class="w-4 h-4 dark:text-gray-100">
-							<path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
-						</svg>
-					</button>
-				</span>
-				<input type="search" name="Search" placeholder="Recherche..." class="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:bg-gray-800 text-gray-100 focus:bg-gray-900">
-			</div>
-			<!-- <button type="button" class="hidden px-6 py-2 font-semibold rounded lg:block dark:bg-violet-400 dark:text-gray-900">Log in</button> -->
-		<!-- </div>
-		<button title="Open menu" type="button" class="p-4 lg:hidden">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 text-gray-300">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-			</svg>
-		</button>
-	</div>
-</header> -->
-<!-- <header class="p-4 bg-purple-600 text-gray-100">
-  <nav class="border-gray-100 px-2 mb-10">
-    <div class="container mx-auto flex flex-wrap items-center justify-between">
-    <a href="#" class="flex">
-      <img class="mx-auto w-28" src="assets/images/camereco6.png" alt="logo" />
-      <span class="self-center text-lg font-semibold whitespace-nowrap">CamerEco</span>
-    </a>
-    <div class="flex md:order-2">
-        <div class="relative mr-3 md:mr-0 hidden md:block">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-          </div>
-          <input type="text" id="email-adress-icon" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2" placeholder="Search...">
+ <header id="header" class="container max-w-6xl mx-auto px-6 py-6 text-gray-800">
+  <!-- Menu/Logo-->
+    <nav class="flex items-center justify-between font-bold ">
+      <!--Logo-->
+      <img src="assets/images/camereco6.png" alt="" class="w-16 h-16 md:w-32 md:h-32">
+      <!--Menu-->
+      <div class="hidden h-10 font-alata md:flex md:space-x-8">
+        <div class="group">
+          <a  routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Accueil</a>
+          <div class="mb-2 group-hover:border-b-2 group-hover:border-rose-500"></div>
         </div>
-        <button data-collapse-toggle="mobile-menu-3" type="button" class="md:hidden text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center" aria-controls="mobile-menu-3" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-        <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-      </button>
+        <div class="group">
+          <a  href="#">Link 1</a>
+          <div class="mx-2 group-hover:border-b group-hover:border-rose-50"></div>
+        </div>
+        <div class="group">
+          <a  href="#">Link 2</a>
+          <div class="mx-2 group-hover:border-b group-hover:border-rose-50"></div>
+        </div>
+        <div class="group border rounded-md">
+          <span class="inset-y-0 flex items-center  ">
+            <button type="submit" title="Search" class="p-1 focus:outline-none focus:ring">
+              <svg fill="currentColor" viewBox="0 0 512 512" class="w-4 h-4 dark:text-gray-100">
+                <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
+              </svg>
+            </button>
+            <input type="search" name="Search" placeholder="Search..." class="w-48 bg-gray-100 px-4 py-2">
+          </span>
+
+        </div>
+
+      </div>
+      <!-- hamburger BUTTON-->
+      <div class="md:hidden">
+        <button id="menu-btn" type="button" class="z-40 block hamburger md:hidden focus:outline-none">
+          <span class="hamburger-top"></span>
+          <span class="hamburger-middle"></span>
+          <span class="hamburger-bottom"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- Mobile menu-->
+    <div
+      id="menu"
+      class="absolute top-0 bottom-0 left-0  flex-col self-end hidden w-full min-h-screen py-1 pt-65 pl-12 space-y-3 text-lg uppercase">
+      <a href="" class="hover:text-rose-500">Accueil</a>
+      <a href="" class="hover:text-rose-500">Link 1</a>
+      <a href="" class="hover:text-rose-500">Link 2</a>
     </div>
-    <div class="hidden md:flex justify-between items-center w-full md:w-auto md:order-1" id="mobile-menu-3">
-      <ul class="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
-        <li>
-          <a href="#" class="bg-blue-700 md:bg-transparent text-white block pl-3 pr-4 py-2 md:text-blue-700 md:p-0 rounded" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="#" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">About</a>
-        </li>
-        <li>
-          <a href="#" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">Services</a>
-        </li>
-      </ul>
-    </div>
-    </div>
-  </nav>
-</header>
-
- -->
-
- <header class="p-4 bg-gray-100 text-gray-800 sticky top-0 shadow-xl">
-	<div class="container flex justify-between h-16 mx-auto">
-		<ul class="items-stretch hidden space-x-3 lg:flex">
-			<li class="flex">
-				<a  routerLink="/" routerLinkActive="active"  rel="noopener noreferrer"  class="flex items-center px-4 -mb-1 border-b-2 border-transparent text-rose-600 border-rose-600">Accueil</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Link</a>
-			</li>
-			<li class="flex">
-				<a rel="noopener noreferrer" href="#" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Link</a>
-			</li>
-		</ul>
-		<a routerLink="/" rel="noopener noreferrer" href="#" aria-label="Back to homepage" class="flex items-center p-2">
-			<img class="w-18 h-18 md:w-28 md:h-28 mr-2 rounded-md overflow-hidden" src="assets/images/camereco6.png" />
-		</a>
-		<div class="flex items-center md:space-x-4">
-			<div class="relative">
-				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
-					<button type="submit" title="Search" class="p-1 focus:outline-none focus:ring">
-						<svg fill="currentColor" viewBox="0 0 512 512" class="w-4 h-4 dark:text-gray-100">
-							<path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
-						</svg>
-					</button>
-				</span>
-				<input type="search" name="Search" placeholder="Search..." class="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:bg-gray-800 dark:text-gray-100 focus:dark:bg-gray-900">
-			</div>
-
-		</div>
-		<button title="Open menu" type="button" class="p-4 lg:hidden">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 dark:text-gray-100">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-			</svg>
-		</button>
-	</div>
-
-</header>
-<!-- <nav id="header" class="fixed w-full z-30 top-0 text-white">
-
-  <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-
-    <div class="pl-4 flex items-center">
-      <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-        Icon from: http://www.potlabicons.com/ -->
-        <!-- <svg class="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
-          <rect fill="#2a2a31" x="16.539" y="425.626" width="479.767" height="50.502" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)" />
-          <path class="plane-take-off" d=" M 510.7 189.151 C 505.271 168.95 484.565 156.956 464.365 162.385 L 330.156 198.367 L 155.924 35.878 L 107.19 49.008 L 211.729 230.183 L 86.232 263.767 L 36.614 224.754 L 0 234.603 L 45.957 314.27 L 65.274 347.727 L 105.802 336.869 L 240.011 300.886 L 349.726 271.469 L 483.935 235.486 C 504.134 230.057 516.129 209.352 510.7 189.151 Z " />
-        </svg> LANDING
-      </a>
-    </div>
-
-    <div class="block lg:hidden pr-4">
-      <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-teal-500 appearance-none focus:outline-none">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-        </svg>
-      </button>
-    </div>
-
-    <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
-      <ul class="list-reset lg:flex justify-end flex-1 items-center">
-        <li class="mr-3">
-          <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Active</a>
-        </li>
-        <li class="mr-3">
-          <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">link</a>
-        </li>
-        <li class="mr-3">
-          <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">link</a>
-        </li>
-      </ul>
-      <button id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75">Action</button>
-    </div>
-  </div>
-
-  <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
-</nav> -->
-
+ </header>

@@ -1,23 +1,7 @@
-<!-- <div class="p-3 py-6 bg-orange-400 dark:text-gray-900">
-	<div class="container mx-auto">
-		<div class="flex flex-row lg:flex-row md:flex-row items-center justify-between">
-			<a href="#" rel="noreferrer noopener" class="px-3 mt-4 lg:mt-0 py-1 rounded-md border block dark:bg-gray-50 dark:text-gray-900 dark:border-gray-400">
-        <img src="https://source.unsplash.com/random/728x90" alt="" class="w-full">
-      </a>
-		</div>
-	</div>
-</div> -->
-<div class="p-3 py-6 bg-rose-600 dark:text-gray-900">
-	<div class="container mx-auto">
+<div class="p-3 py-6 bg-rose-500 dark:text-gray-900">
+	<div class="container mx-auto md:mb-0">
 		<div   *ngFor="let pub of singlePubs"  class="flex flex-col lg:flex-row items-center justify-between">
-			<!-- <h2 class="text-center text-6xl tracking-tighter font-bold">Up to
-				<br class="sm:hidden">50% Off
-			</h2> -->
-			<!-- <div class="space-x-2 text-center py-2 lg:py-0">
-				<span>Plus free shipping! Use code:</span>
-				<span class="font-bold text-lg">MAMBA</span>
-			</div> -->
-			<a href="#" rel="noreferrer noopener" class="px-5 mt-4 lg:mt-0 py-3 rounded-md border block dark:bg-gray-50 dark:text-gray-900 dark:border-gray-400">
+			<a href="#" rel="noreferrer noopener" class="px-5 mt-4 lg:mt-0 md:mt-0 py-3 rounded-md border block dark:bg-gray-50 dark:text-gray-900 dark:border-gray-400">
         <img src="{{extractSrc(pub.photo)  }}" alt="" class="w-full">
       </a>
 		</div>

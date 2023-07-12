@@ -12,7 +12,8 @@
         "laravel/passport": "^11.3",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "unisharp/laravel-filemanager": "^2.5"
+        "unisharp/laravel-filemanager": "^2.5",
+        "willvincent/feeds": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

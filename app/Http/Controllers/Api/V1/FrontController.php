@@ -7,15 +7,19 @@ use App\Repositories\PubRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\ArticleRepository;
+use App\Repositories\RssRepository;
 
 class FrontController extends Controller
 {
     protected $articleRepository;
     protected $puRepository;
+    protected $rssRepository;
 
-    public function __construct(ArticleRepository $articlerepository,PubRepository $pubrepository){
+    public function __construct(ArticleRepository $articlerepository,PubRepository $pubrepository, RssRepository $rssrepository){
         $this->articleRepository=$articlerepository;
         $this->puRepository=$pubrepository;
+        $this->rssRepository=$rssrepository;
+
     }
     /**
      * Display a listing of the resource.
@@ -36,6 +40,22 @@ class FrontController extends Controller
         return response()->json([
             "sucess"=>false,
             "message"=>"Erreur survenue lors de la recherche d'article"
+        ],Response::HTTP_OK);
+    }
+
+
+    public function rss(){
+        $rss=$this->rssRepository->getRss();
+        if($rss){
+            return response()->json([
+                "sucess"=>true,
+                "rss"=>$rss,
+
+            ],Response::HTTP_OK);
+        }
+        return response()->json([
+            "sucess"=>false,
+            "message"=>"Erreur dans le flux rss"
         ],Response::HTTP_OK);
     }
 

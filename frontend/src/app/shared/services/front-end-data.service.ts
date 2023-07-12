@@ -32,4 +32,8 @@ export class FrontEndDataService {
     return this.http.get(this.url+`/article/mostreaded/pluslus`)
     .pipe(map((res)=>res));
   }
+  getRss(){
+    return this.http.get(this.url+`/flux/rss`)
+    .pipe(map((res)=>res));
+  }
 }

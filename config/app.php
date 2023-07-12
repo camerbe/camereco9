@@ -199,6 +199,7 @@ return [
         */
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        willvincent\Feeds\FeedsServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Feeds'    => willvincent\Feeds\Facades\FeedsFacade::class,
 
     ])->toArray(),
 
